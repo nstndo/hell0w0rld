@@ -1,14 +1,42 @@
 import React, { useState, useEffect } from 'react';
+import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react';
 import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react';
 import { BrowserProvider, Contract } from 'ethers';
-import { initWeb3Modal } from './config/web3modal';
 import { NETWORKS, CONTRACT_ABI } from './config/networks';
 import Header from './components/Header';
 import NetworkCard from './components/NetworkCard';
 import './styles/components.css';
 
-// Initialize Web3Modal
-initWeb3Modal();
+// Initialize Web3Modal directly here
+const projectId = '90f5a0d4425e8c5b3c7f51c08ceba705';
+
+const chains = NETWORKS.map(network => ({
+  chainId: network.chainId,
+  name: network.name,
+  currency: network.currency,
+  explorerUrl: network.explorerUrl,
+  rpcUrl: network.rpcUrl
+}));
+
+const ethersConfig = defaultConfig({
+  metadata: {
+    name: 'GM Daily',
+    description: 'Daily blockchain check-in',
+    url: 'https://hell0w0rld.vercel.app/',
+    icons: ['https://hell0w0rld.vercel.app/icon.png']
+  }
+});
+
+createWeb3Modal({
+  ethersConfig,
+  chains,
+  projectId,
+  enableAnalytics: false,
+  themeMode: 'light',
+  themeVariables: {
+    '--w3m-accent': '#007bff'
+  }
+});
 
 function App() {
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
@@ -38,7 +66,6 @@ function App() {
       const ethersProvider = new BrowserProvider(walletProvider);
       const signer = await ethersProvider.getSigner();
 
-      // Switch network if needed
       if (chainId !== network.chainId) {
         try {
           await walletProvider.request({
