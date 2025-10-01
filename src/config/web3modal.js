@@ -2,7 +2,7 @@ import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react';
 import { NETWORKS } from './networks';
 
 // Get your project ID from https://cloud.walletconnect.com
-export const projectId = 'YOUR_WALLETCONNECT_PROJECT_ID';
+export const projectId = '90f5a0d4425e8c5b3c7f51c08ceba705';
 
 // Configure chains for Web3Modal
 const chains = NETWORKS.map(network => ({
@@ -17,7 +17,7 @@ const ethersConfig = defaultConfig({
   metadata: {
     name: 'GM Daily',
     description: 'Daily blockchain check-in',
-    url: 'https://your-domain.vercel.app', // Update with your domain
+    url: 'https://hell0w0rld.vercel.app/', // Update with your domain
     icons: ['https://your-domain.vercel.app/icon.png']
   }
 });
