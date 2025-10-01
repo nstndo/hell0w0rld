@@ -5,7 +5,6 @@ import { BrowserProvider, Contract } from 'ethers';
 import { NETWORKS, CONTRACT_ABI } from './config/networks';
 import Header from './components/Header';
 import NetworkCard from './components/NetworkCard';
-import './styles/components.css';
 
 // Initialize Web3Modal directly here
 const projectId = '90f5a0d4425e8c5b3c7f51c08ceba705';
