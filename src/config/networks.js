@@ -14,7 +14,7 @@ export const NETWORKS = [
     id: 'base-sepolia',
     name: 'Base Sepolia',
     chainId: 84532,
-    contractAddress: '0x0000000000000000000000000000000000000000',
+    contractAddress: '0x90eE5363F66E3B7D5BcA7ae1DfeCdc6B30fF5CF7',
     rpcUrl: 'https://sepolia.base.org',
     icon: 'BASE',
     explorerUrl: 'https://sepolia.basescan.org',
