@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NetworkCard = ({ network, isConnected, onExecuteGM, status }) => {
+const NetworkCard = ({ network, isConnected, onExecuteHello, status }) => {
   return (
     <div className="network-card">
       <div className="network-header">
@@ -16,9 +16,9 @@ const NetworkCard = ({ network, isConnected, onExecuteGM, status }) => {
       <button
         className="gm-button"
         disabled={!isConnected}
-        onClick={() => onExecuteGM(network)}
+        onClick={() => onExecuteHello(network)}
       >
-        {isConnected ? 'Say GM! 👋' : 'Connect Wallet First'}
+        {isConnected ? 'Say Hello! 👋' : 'Connect Wallet First'}
       </button>
       {status && (
         <div className={`status ${status.type}`}>

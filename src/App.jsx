@@ -6,7 +6,7 @@ import { NETWORKS, CONTRACT_ABI } from './config/networks';
 import Header from './components/Header';
 import NetworkCard from './components/NetworkCard';
 
-// Initialize Web3Modal directly here
+// Web3Modal configuration
 const projectId = '90f5a0d4425e8c5b3c7f51c08ceba705';
 
 const chains = NETWORKS.map(network => ({
@@ -19,13 +19,14 @@ const chains = NETWORKS.map(network => ({
 
 const ethersConfig = defaultConfig({
   metadata: {
-    name: 'GM Daily',
+    name: 'Hello World',
     description: 'Daily blockchain check-in',
-    url: 'https://hell0w0rld.vercel.app/',
+    url: 'https://hell0w0rld.vercel.app',
     icons: ['https://hell0w0rld.vercel.app/icon.png']
   }
 });
 
+// Initialize Web3Modal
 createWeb3Modal({
   ethersConfig,
   chains,
@@ -56,7 +57,7 @@ function App() {
     setStatuses(prev => ({ ...prev, [networkId]: status }));
   };
 
-  const executeGM = async (network) => {
+  const executeHello = async (network) => {
     if (!walletProvider || !address) return;
 
     try {
@@ -65,6 +66,7 @@ function App() {
       const ethersProvider = new BrowserProvider(walletProvider);
       const signer = await ethersProvider.getSigner();
 
+      // Switch network if needed
       if (chainId !== network.chainId) {
         try {
           await walletProvider.request({
@@ -93,22 +95,54 @@ function App() {
         }
       }
 
-      updateStatus(network.id, { type: 'info', message: 'Sending transaction...' });
+      updateStatus(network.id, { type: 'info', message: 'Checking if you can say hello...' });
 
       const contract = new Contract(network.contractAddress, CONTRACT_ABI, signer);
-      const tx = await contract.gm();
+      
+      // Check if user can say hello
+      const canSay = await contract.canSayHello(address);
+      if (!canSay) {
+        const timeUntil = await contract.timeUntilNextHello(address);
+        const hours = Math.floor(Number(timeUntil) / 3600);
+        const minutes = Math.floor((Number(timeUntil) % 3600) / 60);
+        updateStatus(network.id, { 
+          type: 'error', 
+          message: `❌ Already said hello today! Try again in ${hours}h ${minutes}m` 
+        });
+        return;
+      }
+
+      updateStatus(network.id, { type: 'info', message: 'Sending transaction...' });
+
+      const tx = await contract.sayHello();
 
       updateStatus(network.id, { type: 'info', message: 'Confirming transaction...' });
       await tx.wait();
 
-      updateStatus(network.id, { type: 'success', message: '✅ GM sent successfully!' });
-      setTimeout(() => updateStatus(network.id, null), 5000);
+      // Get updated stats
+      const stats = await contract.getUserStats(address);
+      const streak = Number(stats._currentStreak);
+
+      updateStatus(network.id, { 
+        type: 'success', 
+        message: `✅ Hello World! Streak: ${streak} day${streak !== 1 ? 's' : ''}!` 
+      });
+      
+      setTimeout(() => updateStatus(network.id, null), 8000);
 
     } catch (error) {
-      console.error('GM execution error:', error);
+      console.error('Hello execution error:', error);
+      let errorMessage = 'Transaction failed';
+      
+      if (error.message.includes('Already said hello today')) {
+        errorMessage = 'Already said hello today!';
+      } else if (error.message.includes('user rejected')) {
+        errorMessage = 'Transaction rejected';
+      }
+      
       updateStatus(network.id, {
         type: 'error',
-        message: `❌ ${error.message || 'Transaction failed'}`
+        message: `❌ ${errorMessage}`
       });
     }
   };
@@ -119,8 +153,8 @@ function App() {
 
       <div className="container">
         <div className="intro">
-          <h1>Good Morning, Anon! ☀️</h1>
-          <p>Connect your wallet and say GM to the blockchain. Check in daily across multiple networks and stay onchain.</p>
+          <h1>Hello World! 👋</h1>
+          <p>Connect your wallet and say Hello to the blockchain. Check in daily across multiple networks and build your streak!</p>
         </div>
 
         <div className="networks-grid">
@@ -129,7 +163,7 @@ function App() {
               key={network.id}
               network={network}
               isConnected={isConnected}
-              onExecuteGM={executeGM}
+              onExecuteHello={executeHello}
               status={statuses[network.id]}
             />
           ))}
