@@ -107,7 +107,7 @@ function App() {
         const minutes = Math.floor((Number(timeUntil) % 3600) / 60);
         updateStatus(network.id, { 
           type: 'error', 
-          message: `❌ Already said hello today! Try again in ${hours}h ${minutes}m` 
+          message: `❌ Already said Hello World today! Try again in ${hours}h ${minutes}m` 
         });
         return;
       }
@@ -134,8 +134,8 @@ function App() {
       console.error('Hello execution error:', error);
       let errorMessage = 'Transaction failed';
       
-      if (error.message.includes('Already said hello today')) {
-        errorMessage = 'Already said hello today!';
+      if (error.message.includes('Already said Hello World today')) {
+        errorMessage = 'Already said Hello World today!';
       } else if (error.message.includes('user rejected')) {
         errorMessage = 'Transaction rejected';
       }
@@ -154,7 +154,7 @@ function App() {
       <div className="container">
         <div className="intro">
           <h1>Hello World! 👋</h1>
-          <p>Connect your wallet and say Hello to the blockchain. Check in daily across multiple networks and build your streak!</p>
+          <p>Connect your wallet and say Hello World. Check in daily across multiple networks and build your streak!</p>
         </div>
 
         <div className="networks-grid">

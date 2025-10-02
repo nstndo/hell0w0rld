@@ -18,7 +18,7 @@ const NetworkCard = ({ network, isConnected, onExecuteHello, status }) => {
         disabled={!isConnected}
         onClick={() => onExecuteHello(network)}
       >
-        {isConnected ? 'Say Hello! 👋' : 'Connect Wallet First'}
+        {isConnected ? 'Say Hello World!' : 'Connect Wallet First'}
       </button>
       {status && (
         <div className={`status ${status.type}`}>
