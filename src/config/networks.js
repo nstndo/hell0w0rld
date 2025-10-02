@@ -4,7 +4,7 @@ export const NETWORKS = [
     id: 'sepolia',
     name: 'Sepolia',
     chainId: 11155111,
-    contractAddress: '0xd807f615b5f25ecf5220c77b790850e09a3fc21c', // Replace with actual contract
+    contractAddress: '0x22763E02342c2959859Afe7FF5c2a58Bb39F1D5C', // Replace with actual contract
     rpcUrl: 'https://sepolia.infura.io/v3/YOUR_INFURA_KEY',
     icon: 'SEP',
     explorerUrl: 'https://sepolia.etherscan.io',
