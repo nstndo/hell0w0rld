@@ -33,7 +33,7 @@ const Docs = () => {
                 rel="noopener noreferrer"
                 className="address-link"
               >
-                YOUR_SEPOLIA_ADDRESS
+                SEPOLIA_CONTRACT
                 <span className="external-icon">↗</span>
               </a>
             </div>
@@ -54,7 +54,28 @@ const Docs = () => {
                 rel="noopener noreferrer"
                 className="address-link"
               >
-                YOUR_BASE_SEPOLIA_ADDRESS
+                BASE_SEPOLIA_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge optimism">OP</div>
+              <div>
+                <h3>Optimism Sepolia Testnet</h3>
+                <p className="chain-id">Chain ID: 11155420</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://sepolia-optimism.etherscan.io/address/0x3c071d17561dc12437844575fa2426f8f28173c1" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                OPTIMISM_SEPOLIA_CONTRACT
                 <span className="external-icon">↗</span>
               </a>
             </div>

@@ -358,6 +358,10 @@ body {
   background: linear-gradient(135deg, #0052ff 0%, #0066ff 100%);
 }
 
+.network-badge.optimism {
+  background: linear-gradient(135deg, #ff0420 0%, #ff4444 100%);
+}
+
 .contract-network h3 {
   font-size: 1.2rem;
   margin-bottom: 0.3rem;

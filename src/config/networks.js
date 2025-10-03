@@ -20,6 +20,16 @@ export const NETWORKS = [
     explorerUrl: 'https://sepolia.basescan.org',
     currency: 'ETH'
   }
+  {
+    id: 'optimism-sepolia',
+    name: 'Optimism Sepolia',
+    chainId: 11155420,
+    contractAddress: '0x3c071d17561dc12437844575fa2426f8f28173c1',
+    rpcUrl: 'https://sepolia.optimism.io',
+    icon: 'OP',
+    explorerUrl: 'https://sepolia-optimism.etherscan.io',
+    currency: 'ETH'
+  }
 ];
 
 // Updated ABI for HelloWorld contract
