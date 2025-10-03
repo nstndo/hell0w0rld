@@ -159,7 +159,7 @@ const Docs = () => {
       </div>
 
       <div className="docs-section">
-        <h2>📝 Contract ABI</h2>
+        <h2>Contract ABI</h2>
         <p>Use this ABI to interact with the contract programmatically:</p>
         <pre className="code-block">
 {`[
@@ -180,7 +180,7 @@ const Docs = () => {
       </div>
 
       <div className="docs-section">
-        <h2>⚙️ How It Works</h2>
+        <h2>How It Works</h2>
         <div className="how-it-works">
           <div className="step">
             <div className="step-number">1</div>
@@ -207,18 +207,18 @@ const Docs = () => {
       </div>
 
       <div className="docs-section">
-        <h2>🔒 Security</h2>
+        <h2>Security</h2>
         <ul className="security-list">
-          <li>✅ All contracts are verified on block explorers</li>
-          <li>✅ Built with Solidity 0.8.20+ (built-in overflow protection)</li>
-          <li>✅ No admin functions or upgrade mechanisms</li>
-          <li>✅ Fully decentralized and immutable</li>
-          <li>✅ Gas-optimized for cost-effective interactions</li>
+          <li>- All contracts are verified on block explorers</li>
+          <li>- Built with Solidity 0.8.20+ (built-in overflow protection)</li>
+          <li>- No admin functions or upgrade mechanisms</li>
+          <li>- Fully decentralized and immutable</li>
+          <li>- Gas-optimized for cost-effective interactions</li>
         </ul>
       </div>
 
       <div className="docs-section">
-        <h2>🛠️ Integration Example</h2>
+        <h2>Integration Example</h2>
         <p>Example code for integrating Hello World into your dApp:</p>
         <pre className="code-block">
 {`import { ethers } from 'ethers';
@@ -247,7 +247,7 @@ console.log('Streak:', stats._currentStreak);`}
       </div>
 
       <div className="docs-section">
-        <h2>❓ FAQ</h2>
+        <h2>FAQ</h2>
         <div className="faq">
           <div className="faq-item">
             <h3>How often can I say hello?</h3>
