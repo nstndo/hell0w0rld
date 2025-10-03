@@ -86,6 +86,29 @@ const Docs = () => {
               </a>
             </div>
           </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge sepolia">
+                <img src="/images/networks/MON.svg" alt="Monad Testnet" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Monad Testnet</h3>
+                <p className="chain-id">Chain ID: 10143</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://testnet.monadscan.com/address/0xc5464a200d5fe26b9eb78a22e0d3df8df1971beb" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                MONAD_TESTNET_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -32,6 +32,17 @@ export const NETWORKS = [
     logo: '/images/networks/OP.svg',
     explorerUrl: 'https://sepolia-optimism.etherscan.io',
     currency: 'ETH'
+  },
+  {
+    id: 'monad-testnet',
+    name: 'Monad Testnet',
+    chainId: 10143,
+    contractAddress: '0xC5464A200d5fE26B9EB78A22e0d3df8DF1971beB',
+    rpcUrl: 'https://testnet-rpc.monad.xyz',
+    icon: 'MON',
+    logo: '/images/networks/MON.svg',
+    explorerUrl: 'https://testnet.monadscan.com/',
+    currency: 'MON'
   }
 ];
 
