@@ -26,4 +26,4 @@ const NetworkCard = ({ network, isConnected, onExecuteHello, status }) => {
   );
 };
 
-export default NetworkCard;
+export default NetworkCard; 

@@ -1,4 +1,4 @@
-// Network configurations - easy to extend
+// Network configurations - easy to extend 
 export const NETWORKS = [
   {
     id: 'sepolia',

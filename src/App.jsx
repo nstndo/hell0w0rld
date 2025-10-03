@@ -9,7 +9,7 @@ import NetworkCard from './components/NetworkCard';
 import Footer from './components/Footer';
 import Docs from './components/Docs';
 
-// Web3Modal configuration
+// Web3Modal configuration 
 const projectId = '90f5a0d4425e8c5b3c7f51c08ceba705';
 
 const chains = NETWORKS.map(network => ({

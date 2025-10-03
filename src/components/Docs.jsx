@@ -137,7 +137,7 @@ const contract = new ethers.Contract(contractAddress, abi, signer);
 // Check if user can say hello
 const canSay = await contract.canSayHello(userAddress);
 
-// Say hello
+// Say hello 
 if (canSay) {
   const tx = await contract.sayHello();
   await tx.wait();

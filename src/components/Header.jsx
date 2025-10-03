@@ -15,4 +15,4 @@ const Header = ({ theme, onThemeToggle }) => {
   );
 };
 
-export default Header;
+export default Header; 
