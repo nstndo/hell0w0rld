@@ -4,7 +4,7 @@ export const NETWORKS = [
     id: 'sepolia',
     name: 'Sepolia',
     chainId: 11155111,
-    contractAddress: '0x22763E02342c2959859Afe7FF5c2a58Bb39F1D5C',
+    contractAddress: '0x8fCA96ae99D575e89f76D7E410A2B66AcfFb9683',
     rpcUrl: 'https://sepolia.infura.io/v3/bf6fd6deeb9d452880797d47f983dbcc',
     icon: 'SEP',
     explorerUrl: 'https://sepolia.etherscan.io',
@@ -14,7 +14,7 @@ export const NETWORKS = [
     id: 'base-sepolia',
     name: 'Base Sepolia',
     chainId: 84532,
-    contractAddress: '0x90eE5363F66E3B7D5BcA7ae1DfeCdc6B30fF5CF7',
+    contractAddress: '0x9f27110Ec3b411B44Ec1c7AB9c964cB5eC8d33d2',
     rpcUrl: 'https://sepolia.base.org',
     icon: 'BASE',
     explorerUrl: 'https://sepolia.basescan.org',
@@ -26,9 +26,13 @@ export const NETWORKS = [
 export const CONTRACT_ABI = [
   "function sayHello() external",
   "function canSayHello(address user) external view returns (bool)",
+  "function getCurrentDay() external view returns (uint256)",
+  "function lastHelloDay(address) external view returns (uint256)",
   "function lastHello(address) external view returns (uint256)",
   "function totalHellos(address) external view returns (uint256)",
   "function currentStreak(address) external view returns (uint256)",
   "function getUserStats(address user) external view returns (uint256 _lastHello, uint256 _totalHellos, uint256 _currentStreak, bool _canSayHello)",
-  "function timeUntilNextHello(address user) external view returns (uint256)"
+  "function getUserInfo(address user) external view returns (uint256 _lastHelloDay, uint256 _currentDay, uint256 _lastHello, uint256 _totalHellos, uint256 _currentStreak, bool _canSayHello)",
+  "function timeUntilNextHello(address user) external view returns (uint256)",
+  "function timeUntilMidnight() external view returns (uint256)"
 ];
