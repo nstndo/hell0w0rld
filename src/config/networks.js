@@ -7,6 +7,7 @@ export const NETWORKS = [
     contractAddress: '0x8fCA96ae99D575e89f76D7E410A2B66AcfFb9683',
     rpcUrl: 'https://sepolia.infura.io/v3/bf6fd6deeb9d452880797d47f983dbcc',
     icon: 'SEP',
+    logo: '/images/networks/ETH.svg',
     explorerUrl: 'https://sepolia.etherscan.io',
     currency: 'ETH'
   },
@@ -17,6 +18,7 @@ export const NETWORKS = [
     contractAddress: '0x9f27110Ec3b411B44Ec1c7AB9c964cB5eC8d33d2',
     rpcUrl: 'https://sepolia.base.org',
     icon: 'BASE',
+    logo: '/images/networks/BASE.svg',
     explorerUrl: 'https://sepolia.basescan.org',
     currency: 'ETH'
   },
@@ -27,6 +29,7 @@ export const NETWORKS = [
     contractAddress: '0x3c071d17561dc12437844575fa2426f8f28173c1',
     rpcUrl: 'https://sepolia.optimism.io',
     icon: 'OP',
+    logo: '/images/networks/OP.svg',
     explorerUrl: 'https://sepolia-optimism.etherscan.io',
     currency: 'ETH'
   }

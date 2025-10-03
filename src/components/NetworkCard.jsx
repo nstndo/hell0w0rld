@@ -4,7 +4,13 @@ const NetworkCard = ({ network, isConnected, onExecuteHello, status }) => {
   return (
     <div className="network-card">
       <div className="network-header">
-        <div className="network-icon">{network.icon}</div>
+        <div className="network-icon">
+          {network.logo ? (
+            <img src={network.logo} alt={network.name} className="network-logo" />
+          ) : (
+            network.icon
+          )}
+        </div>
         <div className="network-info">
           <h3>{network.name}</h3>
           <div className="chain-id">Chain ID: {network.chainId}</div>
@@ -26,4 +32,4 @@ const NetworkCard = ({ network, isConnected, onExecuteHello, status }) => {
   );
 };
 
-export default NetworkCard; 
+export default NetworkCard;

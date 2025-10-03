@@ -20,7 +20,9 @@ const Docs = () => {
         <div className="contracts-table">
           <div className="contract-row">
             <div className="contract-network">
-              <div className="network-badge sepolia">SEP</div>
+              <div className="network-badge sepolia">
+                <img src="/images/networks/ETH.svg" alt="Ethereum Sepolia" className="badge-logo" />
+              </div>
               <div>
                 <h3>Sepolia Testnet</h3>
                 <p className="chain-id">Chain ID: 11155111</p>
@@ -41,7 +43,9 @@ const Docs = () => {
 
           <div className="contract-row">
             <div className="contract-network">
-              <div className="network-badge base">BASE</div>
+              <div className="network-badge sepolia">
+                <img src="/images/networks/BASE.svg" alt="Base Sepolia" className="badge-logo" />
+              </div>
               <div>
                 <h3>Base Sepolia Testnet</h3>
                 <p className="chain-id">Chain ID: 84532</p>
@@ -62,7 +66,9 @@ const Docs = () => {
 
           <div className="contract-row">
             <div className="contract-network">
-              <div className="network-badge optimism">OP</div>
+              <div className="network-badge sepolia">
+                <img src="/images/networks/OP.svg" alt="Optimism Sepolia" className="badge-logo" />
+              </div>
               <div>
                 <h3>Optimism Sepolia Testnet</h3>
                 <p className="chain-id">Chain ID: 11155420</p>
