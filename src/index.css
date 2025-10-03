@@ -235,3 +235,242 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* Documentation Styles */
+.docs-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.docs-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.docs-header h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.docs-header p {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+}
+
+.docs-section {
+  margin-bottom: 4rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.docs-section:last-child {
+  border-bottom: none;
+}
+
+.docs-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+}
+
+.docs-section p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* Contracts Table */
+.contracts-table {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.contract-row {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s ease;
+}
+
+.contract-row:hover {
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px var(--shadow);
+}
+
+.contract-network {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.network-badge {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  color: white;
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.network-badge.sepolia {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.network-badge.base {
+  background: linear-gradient(135deg, #0052ff 0%, #0066ff 100%);
+}
+
+.contract-network h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+  color: var(--text-primary);
+}
+
+.contract-address-block {
+  flex-shrink: 0;
+}
+
+.address-link {
+  font-family: 'Courier New', monospace;
+  font-size: 0.95rem;
+  color: var(--button-bg);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--bg-secondary);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.address-link:hover {
+  background: var(--border-color);
+  transform: translateY(-2px);
+}
+
+.external-icon {
+  font-size: 1.2rem;
+}
+
+/* Code Blocks */
+.code-block {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin: 1.5rem 0;
+}
+
+/* How It Works */
+.how-it-works {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.step {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.step-number {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--button-bg);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.step-content h3 {
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.step-content p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Security List */
+.security-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1.5rem;
+}
+
+.security-list li {
+  padding: 0.8rem 0;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.security-list li:last-child {
+  border-bottom: none;
+}
+
+/* FAQ */
+.faq {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.faq-item h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+  color: var(--text-primary);
+}
+
+.faq-item p {
+  margin: 0;
+  font-size: 1rem;
+  color: var(--text-secondary);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .contract-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .address-link {
+    font-size: 0.75rem;
+    word-break: break-all;
+  }
+  
+  .docs-header h1 {
+    font-size: 2rem;
+  }
+}

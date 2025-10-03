@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react';
 import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react';
 import { BrowserProvider, Contract } from 'ethers';
 import { NETWORKS, CONTRACT_ABI } from './config/networks';
 import Header from './components/Header';
 import NetworkCard from './components/NetworkCard';
+import Docs from './components/Docs';
 
 // Web3Modal configuration
 const projectId = '90f5a0d4425e8c5b3c7f51c08ceba705';
@@ -26,7 +28,6 @@ const ethersConfig = defaultConfig({
   }
 });
 
-// Initialize Web3Modal
 createWeb3Modal({
   ethersConfig,
   chains,
@@ -38,11 +39,41 @@ createWeb3Modal({
   }
 });
 
+function HomePage({ theme, executeHello, statuses, isConnected }) {
+  return (
+    <>
+      <div className="container">
+        <div className="intro">
+          <h1>Hello World! 👋</h1>
+          <p>Connect your wallet and say Hello to the blockchain. Check in daily across multiple networks and build your streak!</p>
+        </div>
+
+        <div className="networks-grid">
+          {NETWORKS.map(network => (
+            <NetworkCard
+              key={network.id}
+              network={network}
+              isConnected={isConnected}
+              onExecuteHello={executeHello}
+              status={statuses[network.id]}
+            />
+          ))}
+        </div>
+      </div>
+
+      <footer className="footer">
+        <p>Built with ❤️ for the onchain community</p>
+      </footer>
+    </>
+  );
+}
+
 function App() {
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
   const [statuses, setStatuses] = useState({});
   const { address, chainId, isConnected } = useWeb3ModalAccount();
   const { walletProvider } = useWeb3ModalProvider();
+  const location = useLocation();
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -66,7 +97,6 @@ function App() {
       const ethersProvider = new BrowserProvider(walletProvider);
       const signer = await ethersProvider.getSigner();
 
-      // Switch network if needed
       if (chainId !== network.chainId) {
         try {
           await walletProvider.request({
@@ -99,7 +129,6 @@ function App() {
 
       const contract = new Contract(network.contractAddress, CONTRACT_ABI, signer);
       
-      // Check if user can say hello
       const canSay = await contract.canSayHello(address);
       if (!canSay) {
         const timeUntil = await contract.timeUntilNextHello(address);
@@ -107,7 +136,7 @@ function App() {
         const minutes = Math.floor((Number(timeUntil) % 3600) / 60);
         updateStatus(network.id, { 
           type: 'error', 
-          message: `❌ Already said Hello World today! Try again in ${hours}h ${minutes}m` 
+          message: `❌ Already said hello today! Try again in ${hours}h ${minutes}m` 
         });
         return;
       }
@@ -119,7 +148,6 @@ function App() {
       updateStatus(network.id, { type: 'info', message: 'Confirming transaction...' });
       await tx.wait();
 
-      // Get updated stats
       const stats = await contract.getUserStats(address);
       const streak = Number(stats._currentStreak);
 
@@ -134,8 +162,8 @@ function App() {
       console.error('Hello execution error:', error);
       let errorMessage = 'Transaction failed';
       
-      if (error.message.includes('Already said Hello World today')) {
-        errorMessage = 'Already said Hello World today!';
+      if (error.message.includes('Already said hello today')) {
+        errorMessage = 'Already said hello today!';
       } else if (error.message.includes('user rejected')) {
         errorMessage = 'Transaction rejected';
       }
@@ -149,30 +177,22 @@ function App() {
 
   return (
     <div className="app">
-      <Header theme={theme} onThemeToggle={toggleTheme} />
+      <Header theme={theme} onThemeToggle={toggleTheme} location={location} />
 
-      <div className="container">
-        <div className="intro">
-          <h1>Hello World! 👋</h1>
-          <p>Connect your wallet and say Hello World. Check in daily across multiple networks and build your streak!</p>
-        </div>
-
-        <div className="networks-grid">
-          {NETWORKS.map(network => (
-            <NetworkCard
-              key={network.id}
-              network={network}
-              isConnected={isConnected}
-              onExecuteHello={executeHello}
-              status={statuses[network.id]}
+      <Routes>
+        <Route 
+          path="/" 
+          element={
+            <HomePage 
+              theme={theme} 
+              executeHello={executeHello} 
+              statuses={statuses} 
+              isConnected={isConnected} 
             />
-          ))}
-        </div>
-      </div>
-
-      <footer className="footer">
-        <p>Built with ❤️ for the onchain community</p>
-      </footer>
+          } 
+        />
+        <Route path="/docs" element={<Docs />} />
+      </Routes>
     </div>
   );
 }

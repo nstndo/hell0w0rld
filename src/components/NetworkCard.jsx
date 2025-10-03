@@ -10,15 +10,12 @@ const NetworkCard = ({ network, isConnected, onExecuteHello, status }) => {
           <div className="chain-id">Chain ID: {network.chainId}</div>
         </div>
       </div>
-      <div className="contract-address" title={network.contractAddress}>
-        {network.contractAddress}
-      </div>
       <button
         className="gm-button"
         disabled={!isConnected}
         onClick={() => onExecuteHello(network)}
       >
-        {isConnected ? 'Say Hello World!' : 'Connect Wallet First'}
+        {isConnected ? 'Hello World!' : 'Connect Wallet First'}
       </button>
       {status && (
         <div className={`status ${status.type}`}>
