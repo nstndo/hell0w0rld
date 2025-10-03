@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const Docs = () => {
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="docs-container">
       <div className="docs-header">
@@ -91,7 +96,7 @@ const Docs = () => {
           <div className="step">
             <div className="step-number">2</div>
             <div className="step-content">
-              <h3>Say Hello World</h3>
+              <h3>Say Hello</h3>
               <p>Click "Hello World!" once per day on any supported network</p>
             </div>
           </div>
@@ -109,7 +114,7 @@ const Docs = () => {
         <h2>🔒 Security</h2>
         <ul className="security-list">
           <li>✅ All contracts are verified on block explorers</li>
-          <li>✅ Built with Solidity 0.8.30+ (built-in overflow protection)</li>
+          <li>✅ Built with Solidity 0.8.20+ (built-in overflow protection)</li>
           <li>✅ No admin functions or upgrade mechanisms</li>
           <li>✅ Fully decentralized and immutable</li>
           <li>✅ Gas-optimized for cost-effective interactions</li>
@@ -150,7 +155,7 @@ console.log('Streak:', stats._currentStreak);`}
         <div className="faq">
           <div className="faq-item">
             <h3>How often can I say hello?</h3>
-            <p>You can say hello once per day (resets at 00:00 UTC)</p>
+            <p>You can say hello once per day (resets at 00:00 UTC / 03:00 Moscow time)</p>
           </div>
           <div className="faq-item">
             <h3>What happens if I miss a day?</h3>
