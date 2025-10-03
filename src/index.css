@@ -345,6 +345,13 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
+  flex: 1;
+}
+
+.contract-network > div:last-child {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .network-badge {
