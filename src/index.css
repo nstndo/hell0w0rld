@@ -316,65 +316,10 @@ body {
   margin-bottom: 1.5rem;
 }
 
-/* Contracts Table */
-.contracts-table {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-top: 2rem;
-}
-
-.contract-row {
-  background: var(--card-bg);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 1.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1rem;
-  transition: all 0.3s ease;
-}
-
-.contract-row:hover {
-  transform: translateX(4px);
-  box-shadow: 0 4px 12px var(--shadow);
-}
-
 .contract-network {
   display: flex;
   align-items: center;
   gap: 1rem;
-}
-
-.network-badge {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: #f0f3f5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  color: white;
-  font-size: 0.9rem;
-  flex-shrink: 0;
-}
-
-.badge-logo {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-}
-
-.contract-network h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.3rem;
-  color: var(--text-primary);
-}
-
-.contract-address-block {
-  flex-shrink: 0;
 }
 
 .address-link {
