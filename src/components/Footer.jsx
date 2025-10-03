@@ -11,18 +11,32 @@ const ScrambleText = ({ children, to, external }) => {
   
   useEffect(() => {
     if (isHovering) {
-      let iteration = 0;
       const textLength = originalText.length;
+      const revealOrder = Array.from({ length: textLength }, (_, i) => i)
+        .filter(i => originalText[i] !== ' ') // Skip spaces
+        .sort(() => Math.random() - 0.5); // Randomize order
+      
+      const revealed = new Array(textLength).fill(false);
+      let revealIndex = 0;
       
       clearInterval(intervalRef.current);
       
       intervalRef.current = setInterval(() => {
-        setDisplayText(prevText => 
+        // Reveal next letter(s) in random order
+        if (revealIndex < revealOrder.length) {
+          const lettersToReveal = Math.floor(Math.random() * 2) + 1; // Reveal 1-2 letters at once
+          for (let i = 0; i < lettersToReveal && revealIndex < revealOrder.length; i++) {
+            revealed[revealOrder[revealIndex]] = true;
+            revealIndex++;
+          }
+        }
+        
+        setDisplayText(
           originalText
             .split('')
             .map((letter, index) => {
               if (letter === ' ') return ' ';
-              if (index < iteration) {
+              if (revealed[index]) {
                 return originalText[index];
               }
               return letters[Math.floor(Math.random() * letters.length)];
@@ -30,12 +44,10 @@ const ScrambleText = ({ children, to, external }) => {
             .join('')
         );
         
-        iteration += 1 / 3;
-        
-        if (iteration >= textLength) {
+        if (revealIndex >= revealOrder.length) {
           clearInterval(intervalRef.current);
         }
-      }, 30);
+      }, 40);
     } else {
       clearInterval(intervalRef.current);
       setDisplayText(originalText);
