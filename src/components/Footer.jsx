@@ -13,8 +13,8 @@ const ScrambleText = ({ children, to, external }) => {
     if (isHovering) {
       const textLength = originalText.length;
       const revealOrder = Array.from({ length: textLength }, (_, i) => i)
-        .filter(i => originalText[i] !== ' ') // Skip spaces
-        .sort(() => Math.random() - 0.5); // Randomize order
+        .filter(i => originalText[i] !== ' ')
+        .sort(() => Math.random() - 0.5);
       
       const revealed = new Array(textLength).fill(false);
       let revealIndex = 0;
@@ -22,9 +22,8 @@ const ScrambleText = ({ children, to, external }) => {
       clearInterval(intervalRef.current);
       
       intervalRef.current = setInterval(() => {
-        // Reveal next letter(s) in random order
         if (revealIndex < revealOrder.length) {
-          const lettersToReveal = Math.floor(Math.random() * 2) + 1; // Reveal 1-2 letters at once
+          const lettersToReveal = Math.floor(Math.random() * 1.5) + 1; // 1 letter at once, sometimes 2
           for (let i = 0; i < lettersToReveal && revealIndex < revealOrder.length; i++) {
             revealed[revealOrder[revealIndex]] = true;
             revealIndex++;
@@ -47,7 +46,7 @@ const ScrambleText = ({ children, to, external }) => {
         if (revealIndex >= revealOrder.length) {
           clearInterval(intervalRef.current);
         }
-      }, 40);
+      }, 60); // Увеличил с 40ms до 60ms
     } else {
       clearInterval(intervalRef.current);
       setDisplayText(originalText);
