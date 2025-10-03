@@ -44,7 +44,7 @@ function HomePage({ executeHello, statuses, isConnected }) {
   return (
     <div className="container">
       <div className="intro">
-        <h1>Hello World! 👋</h1>
+        <h1>Hello World!</h1>
         <p>Connect your wallet and say Hello to the blockchain. Check in daily across multiple networks and build your streak!</p>
       </div>
 

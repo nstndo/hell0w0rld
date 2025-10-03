@@ -132,6 +132,29 @@ const Docs = () => {
               </a>
             </div>
           </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge sepolia">
+                <img src="/images/networks/RISE.svg" alt="Rise Testnet" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Rise Testnet</h3>
+                <p className="chain-id">Chain ID: 11155931</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://explorer.testnet.riselabs.xyz/address/0x370f35A28797A17603E0fbD5df6010272b1006FE" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                RISE_TESTNET_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 

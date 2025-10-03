@@ -54,6 +54,17 @@ export const NETWORKS = [
     logo: '/images/networks/PHRS.svg',
     explorerUrl: 'https://pharos-testnet.socialscan.io/',
     currency: 'PHRS'
+  },
+  {
+    id: 'rise-testnet',
+    name: 'Rise Testnet',
+    chainId: 11155931,
+    contractAddress: '0x370f35A28797A17603E0fbD5df6010272b1006FE',
+    rpcUrl: 'https://testnet.riselabs.xyz',
+    icon: 'RISE',
+    logo: '/images/networks/RISE.svg',
+    explorerUrl: 'https://explorer.testnet.riselabs.xyz/',
+    currency: 'ETH'
   }
 ];
 
