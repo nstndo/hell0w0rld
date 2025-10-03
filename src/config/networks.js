@@ -65,6 +65,17 @@ export const NETWORKS = [
     logo: '/images/networks/RISE.svg',
     explorerUrl: 'https://explorer.testnet.riselabs.xyz/',
     currency: 'ETH'
+  },
+  {
+    id: 'megaeth-testnet',
+    name: 'Megaeth Testnet',
+    chainId: 6342,
+    contractAddress: '0xc87347a4e46ad9d0809df41db6802809d7086b2e',
+    rpcUrl: 'https://carrot.megaeth.com/rpc',
+    icon: 'MEGA',
+    logo: '/images/networks/MEGA.svg',
+    explorerUrl: 'https://web3.okx.com/ru/explorer/megaeth-testnet',
+    currency: 'ETH'
   }
 ];
 
