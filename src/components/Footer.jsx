@@ -1,41 +1,71 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-const AnimatedLink = ({ to, children, external }) => {
-  const letters = children.split('');
+const ScrambleText = ({ children, to, external }) => {
+  const [displayText, setDisplayText] = useState(children);
+  const [isHovering, setIsHovering] = useState(false);
+  const intervalRef = useRef(null);
+  const originalText = children;
+  
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  
+  useEffect(() => {
+    if (isHovering) {
+      let iteration = 0;
+      const textLength = originalText.length;
+      
+      clearInterval(intervalRef.current);
+      
+      intervalRef.current = setInterval(() => {
+        setDisplayText(prevText => 
+          originalText
+            .split('')
+            .map((letter, index) => {
+              if (letter === ' ') return ' ';
+              if (index < iteration) {
+                return originalText[index];
+              }
+              return letters[Math.floor(Math.random() * letters.length)];
+            })
+            .join('')
+        );
+        
+        iteration += 1 / 3;
+        
+        if (iteration >= textLength) {
+          clearInterval(intervalRef.current);
+        }
+      }, 30);
+    } else {
+      clearInterval(intervalRef.current);
+      setDisplayText(originalText);
+    }
+    
+    return () => clearInterval(intervalRef.current);
+  }, [isHovering, originalText]);
+  
+  const linkProps = {
+    className: "footer-link scramble-link",
+    onMouseEnter: () => setIsHovering(true),
+    onMouseLeave: () => setIsHovering(false)
+  };
   
   if (external) {
     return (
       <a 
         href={to}
         target="_blank" 
-        rel="noopener noreferrer" 
-        className="footer-link animated-link"
+        rel="noopener noreferrer"
+        {...linkProps}
       >
-        {letters.map((letter, index) => (
-          <span 
-            key={index} 
-            className="animated-letter"
-            style={{ '--delay': `${index * 0.03}s` }}
-          >
-            {letter === ' ' ? '\u00A0' : letter}
-          </span>
-        ))}
+        {displayText}
       </a>
     );
   }
   
   return (
-    <Link to={to} className="footer-link animated-link">
-      {letters.map((letter, index) => (
-        <span 
-          key={index} 
-          className="animated-letter"
-          style={{ '--delay': `${index * 0.03}s` }}
-        >
-          {letter === ' ' ? '\u00A0' : letter}
-        </span>
-      ))}
+    <Link to={to} {...linkProps}>
+      {displayText}
     </Link>
   );
 };
@@ -46,10 +76,9 @@ const Footer = () => {
       <div className="footer-content">
         <p>Built with ❤️ for the onchain community</p>
         <nav className="footer-nav">
-          <AnimatedLink to="/">HOME</AnimatedLink>
+          <ScrambleText to="/">HOME</ScrambleText>
           <span className="footer-separator">•</span>
-          <AnimatedLink to="/docs">DOCUMENTATION</AnimatedLink>
-          <span className="footer-separator">•</span>
+          <ScrambleText to="/docs">Documentation</ScrambleText>
         </nav>
       </div>
     </footer>
