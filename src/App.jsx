@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, Link, useLocation } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react';
 import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react';
 import { BrowserProvider, Contract } from 'ethers';
 import { NETWORKS, CONTRACT_ABI } from './config/networks';
 import Header from './components/Header';
 import NetworkCard from './components/NetworkCard';
+import Footer from './components/Footer';
 import Docs from './components/Docs';
 
 // Web3Modal configuration
@@ -39,32 +40,26 @@ createWeb3Modal({
   }
 });
 
-function HomePage({ theme, executeHello, statuses, isConnected }) {
+function HomePage({ executeHello, statuses, isConnected }) {
   return (
-    <>
-      <div className="container">
-        <div className="intro">
-          <h1>Hello World! 👋</h1>
-          <p>Connect your wallet and say Hello to the blockchain. Check in daily across multiple networks and build your streak!</p>
-        </div>
-
-        <div className="networks-grid">
-          {NETWORKS.map(network => (
-            <NetworkCard
-              key={network.id}
-              network={network}
-              isConnected={isConnected}
-              onExecuteHello={executeHello}
-              status={statuses[network.id]}
-            />
-          ))}
-        </div>
+    <div className="container">
+      <div className="intro">
+        <h1>Hello World! 👋</h1>
+        <p>Connect your wallet and say Hello to the blockchain. Check in daily across multiple networks and build your streak!</p>
       </div>
 
-      <footer className="footer">
-        <p>Built with ❤️ for the onchain community</p>
-      </footer>
-    </>
+      <div className="networks-grid">
+        {NETWORKS.map(network => (
+          <NetworkCard
+            key={network.id}
+            network={network}
+            isConnected={isConnected}
+            onExecuteHello={executeHello}
+            status={statuses[network.id]}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -73,7 +68,6 @@ function App() {
   const [statuses, setStatuses] = useState({});
   const { address, chainId, isConnected } = useWeb3ModalAccount();
   const { walletProvider } = useWeb3ModalProvider();
-  const location = useLocation();
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -177,14 +171,13 @@ function App() {
 
   return (
     <div className="app">
-      <Header theme={theme} onThemeToggle={toggleTheme} location={location} />
+      <Header theme={theme} onThemeToggle={toggleTheme} />
 
       <Routes>
         <Route 
           path="/" 
           element={
             <HomePage 
-              theme={theme} 
               executeHello={executeHello} 
               statuses={statuses} 
               isConnected={isConnected} 
@@ -193,6 +186,8 @@ function App() {
         />
         <Route path="/docs" element={<Docs />} />
       </Routes>
+
+      <Footer />
     </div>
   );
 }
