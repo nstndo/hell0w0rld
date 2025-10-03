@@ -43,6 +43,17 @@ export const NETWORKS = [
     logo: '/images/networks/MON.svg',
     explorerUrl: 'https://testnet.monadscan.com/',
     currency: 'MON'
+  },
+  {
+    id: 'pharos-testnet',
+    name: 'Pharos Testnet',
+    chainId: 688688,
+    contractAddress: '0xa1087a758742C8207Eb547fBC4A5B06d30A8526a',
+    rpcUrl: 'https://testnet.dplabs-internal.com',
+    icon: 'PHRS',
+    logo: '/images/networks/PHRS.svg',
+    explorerUrl: 'https://pharos-testnet.socialscan.io/',
+    currency: 'PHRS'
   }
 ];
 

@@ -109,6 +109,29 @@ const Docs = () => {
               </a>
             </div>
           </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge sepolia">
+                <img src="/images/networks/PHRS.svg" alt="Pharos Testnet" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Pharos Testnet</h3>
+                <p className="chain-id">Chain ID: 688688</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://pharos-testnet.socialscan.io/address/0xa1087a758742c8207eb547fbc4a5b06d30a8526a" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                PHAROS_TESTNET_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 
