@@ -147,7 +147,7 @@ body {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: var(--button-bg);
+  background: #f0f3f5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -351,6 +351,7 @@ body {
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  background: #f0f3f5;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -358,18 +359,6 @@ body {
   color: white;
   font-size: 0.9rem;
   flex-shrink: 0;
-}
-
-.network-badge.sepolia {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.network-badge.base {
-  background: linear-gradient(135deg, #0052ff 0%, #0066ff 100%);
-}
-
-.network-badge.optimism {
-  background: linear-gradient(135deg, #ff0420 0%, #ff4444 100%);
 }
 
 .badge-logo {
