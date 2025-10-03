@@ -78,7 +78,7 @@ const Footer = () => {
         <nav className="footer-nav">
           <ScrambleText to="/">HOME</ScrambleText>
           <span className="footer-separator">•</span>
-          <ScrambleText to="/docs">Documentation</ScrambleText>
+          <ScrambleText to="/docs">DOCUMENTATION</ScrambleText>
         </nav>
       </div>
     </footer>
