@@ -7,7 +7,7 @@ const ScrambleText = ({ children, to, external }) => {
   const intervalRef = useRef(null);
   const originalText = children;
   
-  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   
   useEffect(() => {
     if (isHovering) {
@@ -46,7 +46,7 @@ const ScrambleText = ({ children, to, external }) => {
         if (revealIndex >= revealOrder.length) {
           clearInterval(intervalRef.current);
         }
-      }, 60); // Увеличил с 40ms до 60ms
+      }, 60); // transformation's time
     } else {
       clearInterval(intervalRef.current);
       setDisplayText(originalText);
