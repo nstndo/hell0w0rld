@@ -19,7 +19,7 @@ export const NETWORKS = [
     icon: 'BASE',
     explorerUrl: 'https://sepolia.basescan.org',
     currency: 'ETH'
-  }
+  },
   {
     id: 'optimism-sepolia',
     name: 'Optimism Sepolia',
