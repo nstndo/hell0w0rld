@@ -9,12 +9,12 @@ const Docs = () => {
   return (
     <div className="docs-container">
       <div className="docs-header">
-        <h1>📚 Documentation</h1>
+        <h1>Documentation</h1>
         <p>Contract addresses, ABI, and technical information</p>
       </div>
 
       <div className="docs-section">
-        <h2>🔗 Deployed Contracts</h2>
+        <h2>Deployed Contracts</h2>
         <p>Hello World contracts are deployed on the following networks:</p>
 
         <div className="contracts-table">
