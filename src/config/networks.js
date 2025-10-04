@@ -169,6 +169,18 @@ export const NETWORKS = [
     explorerUrl: 'https://explorer.inkonchain.com/',
     currency: 'ETH',
     isTestnet: false
+  },
+  {
+    id: 'plume',
+    name: 'Plume',
+    chainId: 98866,
+    contractAddress: '0x4A6814b1E0c0EE505665E819a4317cc12C72DeBF',
+    rpcUrl: 'https://rpc.plume.org',
+    icon: 'PLUME',
+    logo: '/images/networks/PLUME.svg',
+    explorerUrl: 'https://explorer.plume.org/',
+    currency: 'PLUME',
+    isTestnet: false
   }
 ];
 
