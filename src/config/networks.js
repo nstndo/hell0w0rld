@@ -146,6 +146,19 @@ export const NETWORKS = [
     currency: 'ETH',
     isTestnet: false
   }
+  ,
+  {
+    id: 'celo',
+    name: 'Celo',
+    chainId: 42220,
+    contractAddress: '0xB2bcF4f2fed7F933255A604F36e5A713dD30425E ',
+    rpcUrl: 'https://rpc.ankr.com/celo',
+    icon: 'CELO',
+    logo: '/images/networks/CELO.svg',
+    explorerUrl: 'https://celoscan.io/',
+    currency: 'CELO',
+    isTestnet: false
+  }
 ];
 
 // Updated ABI for HelloWorld contract
