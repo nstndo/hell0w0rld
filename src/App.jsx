@@ -42,7 +42,7 @@ createWeb3Modal({
 });
 
 function HomePage({ executeHello, statuses, isConnected }) {
-  const [activeTab, setActiveTab] = useState('testnet');
+  const [activeTab, setActiveTab] = useState('mainnet');
   
   const filteredNetworks = NETWORKS.filter(network => 
     activeTab === 'testnet' ? network.isTestnet : !network.isTestnet

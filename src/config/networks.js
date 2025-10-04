@@ -121,6 +121,18 @@ export const NETWORKS = [
     explorerUrl: 'https://basescan.org',
     currency: 'ETH',
     isTestnet: false
+  },
+  {
+    id: 'optimism',
+    name: 'Optimism',
+    chainId: 10,
+    contractAddress: '0xC1225a891ecCEAF5e0899e9656FaeE10D0f62eF7',
+    rpcUrl: 'https://optimism-rpc.publicnode.com',
+    icon: 'OP',
+    logo: '/images/networks/OP.svg',
+    explorerUrl: 'https://explorer.optimism.io/',
+    currency: 'ETH',
+    isTestnet: false
   }
 ];
 
