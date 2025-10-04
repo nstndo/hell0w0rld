@@ -6,10 +6,11 @@ import { BrowserProvider, Contract } from 'ethers';
 import { NETWORKS, CONTRACT_ABI } from './config/networks';
 import Header from './components/Header';
 import NetworkCard from './components/NetworkCard';
+import NetworkTabs from './components/NetworkTabs';
 import Footer from './components/Footer';
 import Docs from './components/Docs';
 
-// Web3Modal configuration 
+// Web3Modal configuration
 const projectId = '90f5a0d4425e8c5b3c7f51c08ceba705';
 
 const chains = NETWORKS.map(network => ({
@@ -41,6 +42,12 @@ createWeb3Modal({
 });
 
 function HomePage({ executeHello, statuses, isConnected }) {
+  const [activeTab, setActiveTab] = useState('testnet');
+  
+  const filteredNetworks = NETWORKS.filter(network => 
+    activeTab === 'testnet' ? network.isTestnet : !network.isTestnet
+  );
+
   return (
     <div className="container">
       <div className="intro">
@@ -48,8 +55,10 @@ function HomePage({ executeHello, statuses, isConnected }) {
         <p>Connect your wallet and say Hello to the blockchain. Check in daily across multiple networks and build your streak!</p>
       </div>
 
+      <NetworkTabs activeTab={activeTab} onTabChange={setActiveTab} />
+
       <div className="networks-grid">
-        {NETWORKS.map(network => (
+        {filteredNetworks.map(network => (
           <NetworkCard
             key={network.id}
             network={network}

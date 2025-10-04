@@ -1,5 +1,6 @@
 // Network configurations - easy to extend 
 export const NETWORKS = [
+  // Testnets
   {
     id: 'sepolia',
     name: 'Sepolia',
@@ -9,7 +10,8 @@ export const NETWORKS = [
     icon: 'SEP',
     logo: '/images/networks/ETH.svg',
     explorerUrl: 'https://sepolia.etherscan.io',
-    currency: 'ETH'
+    currency: 'ETH',
+    isTestnet: true
   },
   {
     id: 'base-sepolia',
@@ -20,7 +22,8 @@ export const NETWORKS = [
     icon: 'BASE',
     logo: '/images/networks/BASE.svg',
     explorerUrl: 'https://sepolia.basescan.org',
-    currency: 'ETH'
+    currency: 'ETH',
+    isTestnet: true
   },
   {
     id: 'optimism-sepolia',
@@ -31,7 +34,8 @@ export const NETWORKS = [
     icon: 'OP',
     logo: '/images/networks/OP.svg',
     explorerUrl: 'https://sepolia-optimism.etherscan.io',
-    currency: 'ETH'
+    currency: 'ETH',
+    isTestnet: true
   },
   {
     id: 'monad-testnet',
@@ -42,7 +46,8 @@ export const NETWORKS = [
     icon: 'MON',
     logo: '/images/networks/MON.svg',
     explorerUrl: 'https://testnet.monadscan.com/',
-    currency: 'MON'
+    currency: 'MON',
+    isTestnet: true
   },
   {
     id: 'pharos-testnet',
@@ -53,7 +58,8 @@ export const NETWORKS = [
     icon: 'PHRS',
     logo: '/images/networks/PHRS.svg',
     explorerUrl: 'https://pharos-testnet.socialscan.io/',
-    currency: 'PHRS'
+    currency: 'PHRS',
+    isTestnet: true
   },
   {
     id: 'rise-testnet',
@@ -64,7 +70,8 @@ export const NETWORKS = [
     icon: 'RISE',
     logo: '/images/networks/RISE.svg',
     explorerUrl: 'https://explorer.testnet.riselabs.xyz/',
-    currency: 'ETH'
+    currency: 'ETH',
+    isTestnet: true
   },
   {
     id: 'megaeth-testnet',
@@ -75,7 +82,8 @@ export const NETWORKS = [
     icon: 'MEGA',
     logo: '/images/networks/MEGA.svg',
     explorerUrl: 'https://web3.okx.com/ru/explorer/megaeth-testnet',
-    currency: 'ETH'
+    currency: 'ETH',
+    isTestnet: true
   },
   {
     id: 'kadena-testnet-20',
@@ -86,7 +94,8 @@ export const NETWORKS = [
     icon: 'KDA',
     logo: '/images/networks/KDA.svg',
     explorerUrl: 'https://chain-20.evm-testnet-blockscout.chainweb.com/',
-    currency: 'KDA'
+    currency: 'KDA',
+    isTestnet: true
   },
   {
     id: 'kadena-testnet-21',
@@ -97,7 +106,21 @@ export const NETWORKS = [
     icon: 'KDA',
     logo: '/images/networks/KDA.svg',
     explorerUrl: 'https://chain-21.evm-testnet-blockscout.chainweb.com/',
-    currency: 'KDA'
+    currency: 'KDA',
+    isTestnet: true
+  },
+  // Mainnets
+  {
+    id: 'base',
+    name: 'Base',
+    chainId: 8453,
+    contractAddress: '0xefbc854f51cbb80ccbe12c69da179d6901978f6c',
+    rpcUrl: 'https://mainnet.base.org',
+    icon: 'BASE',
+    logo: '/images/networks/BASE.svg',
+    explorerUrl: 'https://basescan.org',
+    currency: 'ETH',
+    isTestnet: false
   }
 ];
 

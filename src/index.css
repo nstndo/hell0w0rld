@@ -271,6 +271,38 @@ body {
   user-select: none;
 }
 
+/* Network Tabs */
+.network-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.tab {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: 2px solid var(--border-color);
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.05em;
+}
+
+.tab:hover {
+  background: var(--border-color);
+  color: var(--text-primary);
+}
+
+.tab.active {
+  background: var(--button-bg);
+  color: white;
+  border-color: var(--button-bg);
+}
+
 /* Documentation Page */
 .docs-container {
   max-width: 900px;
