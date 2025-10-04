@@ -87,6 +87,17 @@ export const NETWORKS = [
     logo: '/images/networks/KDA.svg',
     explorerUrl: 'https://chain-20.evm-testnet-blockscout.chainweb.com/',
     currency: 'KDA'
+  },
+  {
+    id: 'kadena-testnet-21',
+    name: 'Kadena Chainweb Testnet',
+    chainId: 5921,
+    contractAddress: '0xd0c205e3C704595113FB8006379EDd1Bc89B2A17',
+    rpcUrl: 'https://evm-testnet.chainweb.com/chainweb/0.0/evm-testnet/chain/21/evm/rpc',
+    icon: 'KDA',
+    logo: '/images/networks/KDA.svg',
+    explorerUrl: 'https://chain-21.evm-testnet-blockscout.chainweb.com/',
+    currency: 'KDA'
   }
 ];
 
