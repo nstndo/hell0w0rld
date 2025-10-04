@@ -151,6 +151,9 @@ function App() {
       updateStatus(network.id, { type: 'info', message: 'Confirming transaction...' });
       await tx.wait();
 
+      // Небольшая задержка для обновления state на RPC ноде
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
       const stats = await contract.getUserStats(address);
       const streak = Number(stats._currentStreak);
 

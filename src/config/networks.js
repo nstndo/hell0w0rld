@@ -145,8 +145,7 @@ export const NETWORKS = [
     explorerUrl: 'https://uniscan.xyz/',
     currency: 'ETH',
     isTestnet: false
-  }
-  ,
+  },
   {
     id: 'celo',
     name: 'Celo',
@@ -157,6 +156,18 @@ export const NETWORKS = [
     logo: '/images/networks/CELO.svg',
     explorerUrl: 'https://celoscan.io/',
     currency: 'CELO',
+    isTestnet: false
+  },
+  {
+    id: 'ink',
+    name: 'Ink',
+    chainId: 57073,
+    contractAddress: '0x2b426387571C3e31b3C9A3C5A91dbeF5CEa64143',
+    rpcUrl: 'https://rpc-qnd.inkonchain.com',
+    icon: 'INK',
+    logo: '/images/networks/INK.svg',
+    explorerUrl: 'https://explorer.inkonchain.com/',
+    currency: 'ETH',
     isTestnet: false
   }
 ];
