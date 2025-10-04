@@ -133,6 +133,18 @@ export const NETWORKS = [
     explorerUrl: 'https://explorer.optimism.io/',
     currency: 'ETH',
     isTestnet: false
+  },
+  {
+    id: 'unichain',
+    name: 'Unichain',
+    chainId: 130,
+    contractAddress: '0xa7877CDF570BEbdf949CD9eC1147cf5c3241A380',
+    rpcUrl: 'https://unichain-rpc.publicnode.com',
+    icon: 'UNI',
+    logo: '/images/networks/UNI.svg',
+    explorerUrl: 'https://uniscan.xyz/',
+    currency: 'ETH',
+    isTestnet: false
   }
 ];
 
