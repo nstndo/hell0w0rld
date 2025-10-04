@@ -151,7 +151,7 @@ export const NETWORKS = [
     id: 'celo',
     name: 'Celo',
     chainId: 42220,
-    contractAddress: '0xB2bcF4f2fed7F933255A604F36e5A713dD30425E ',
+    contractAddress: '0xB2bcF4f2fed7F933255A604F36e5A713dD30425E',
     rpcUrl: 'https://celo.drpc.org',
     icon: 'CELO',
     logo: '/images/networks/CELO.svg',
