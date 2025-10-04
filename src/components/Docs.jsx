@@ -178,6 +178,29 @@ const Docs = () => {
               </a>
             </div>
           </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge sepolia">
+                <img src="/images/networks/KDA.svg" alt="Kadena Chainweb Testnet" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Kadena Chainweb Testnet</h3>
+                <p className="chain-id">Chain ID: 5920</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://chain-20.evm-testnet-blockscout.chainweb.com/address/0x7f81BFb73cb29C3725779ec2C060787DaA2f97d4" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                KADENA_TESTNET_20_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
 

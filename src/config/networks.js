@@ -76,6 +76,17 @@ export const NETWORKS = [
     logo: '/images/networks/MEGA.svg',
     explorerUrl: 'https://web3.okx.com/ru/explorer/megaeth-testnet',
     currency: 'ETH'
+  },
+  {
+    id: 'kadena-testnet-20',
+    name: 'Kadena Chainweb Testnet',
+    chainId: 5920
+    contractAddress: '0x7f81BFb73cb29C3725779ec2C060787DaA2f97d4',
+    rpcUrl: 'https://evm-testnet.chainweb.com/chainweb/0.0/evm-testnet/chain/20/evm/rpc',
+    icon: 'KDA',
+    logo: '/images/networks/KDA.svg',
+    explorerUrl: 'https://chain-20.evm-testnet-blockscout.chainweb.com/',
+    currency: 'KDA'
   }
 ];
 
