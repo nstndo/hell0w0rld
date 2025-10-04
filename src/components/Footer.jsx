@@ -85,7 +85,7 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-content">
-        <p>Built with ❤️ for the onchain community</p>
+        <p>Built for the onchain community</p>
         <nav className="footer-nav">
           <ScrambleText to="/">HOME</ScrambleText>
           <span className="footer-separator">•</span>
