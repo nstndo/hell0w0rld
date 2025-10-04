@@ -166,7 +166,7 @@ body {
 }
 
 .network-info h3 {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   margin-bottom: 0.3rem;
   color: var(--text-primary);
 }
@@ -405,7 +405,7 @@ body {
 }
 
 .contract-network h3 {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   margin: 0;
   line-height: 1.3;
   color: var(--text-primary);
