@@ -109,6 +109,18 @@ export const NETWORKS = [
     currency: 'KDA',
     isTestnet: true
   },
+  {
+    id: 'neura protocol',
+    name: 'Neura',
+    chainId: 267,
+    contractAddress: '0xD71caE47F4B4C800E82d9613BCe0f1E40Ae4932e',
+    rpcUrl: 'RPC URL: https://testnet.rpc.neuraprotocol.io/',
+    icon: 'ANKR',
+    logo: '/images/networks/ANKR.svg',
+    explorerUrl: 'https://testnet-blockscout.infra.neuraprotocol.io/',
+    currency: 'ANKR',
+    isTestnet: true
+  },
   // Mainnets
   {
     id: 'base',
