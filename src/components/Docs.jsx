@@ -42,8 +42,9 @@ const Docs = () => {
             </div>
           </div>
 
-        </div>  
-
+     
+      </div>    
+      <div className="docs-section"></div>
         <h2>Deployed Testnet Contracts</h2>
         <p>Hello World contracts are deployed on the following testnets networks:</p>
 
