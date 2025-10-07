@@ -48,7 +48,7 @@ const Docs = () => {
                 <img src="/images/networks/OP.svg" alt="Optimism" className="badge-logo" />
               </div>
               <div>
-                <h3>Base</h3>
+                <h3>Optimism</h3>
                 <p className="chain-id">Chain ID: 10</p>
               </div>
             </div>
