@@ -14,8 +14,38 @@ const Docs = () => {
       </div>
 
       <div className="docs-section">
+
         <h2>Deployed Contracts</h2>
         <p>Hello World contracts are deployed on the following networks:</p>
+
+        <div className="contracts-table">
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge">
+                <img src="/images/networks/BASE.svg" alt="Base" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Base</h3>
+                <p className="chain-id">Chain ID: 8453</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://basescan.org/address/0xefbc854f51cbb80ccbe12c69da179d6901978f6c" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                BASE_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
+
+        </div>  
+
+        <h2>Deployed Testnet Contracts</h2>
+        <p>Hello World contracts are deployed on the following testnets networks:</p>
 
         <div className="contracts-table">
           <div className="contract-row">
@@ -220,6 +250,29 @@ const Docs = () => {
                 className="address-link"
               >
                 KADENA_TESTNET_21_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge sepolia">
+                <img src="/images/networks/ANKR.svg" alt="Neura Testnet" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Neura Testnet</h3>
+                <p className="chain-id">Chain ID: 267</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://testnet-blockscout.infra.neuraprotocol.io/address/0xD71caE47F4B4C800E82d9613BCe0f1E40Ae4932e" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                NEURA_TESTNET_CONTRACT
                 <span className="external-icon">↗</span>
               </a>
             </div>
