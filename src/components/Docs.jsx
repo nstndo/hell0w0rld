@@ -42,6 +42,120 @@ const Docs = () => {
             </div>
           </div>
 
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge">
+                <img src="/images/networks/OP.svg" alt="Optimism" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Base</h3>
+                <p className="chain-id">Chain ID: 10</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://explorer.optimism.io/address/0xC1225a891ecCEAF5e0899e9656FaeE10D0f62eF7" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                OPTIMISM_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge">
+                <img src="/images/networks/UNI.svg" alt="Unichain" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Unichain</h3>
+                <p className="chain-id">Chain ID: 130</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://uniscan.xyz/address/0xa7877cdf570bebdf949cd9ec1147cf5c3241a380" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                UNICHAIN_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge">
+                <img src="/images/networks/CELO.svg" alt="Celo" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Celo</h3>
+                <p className="chain-id">Chain ID: 42220</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://celoscan.io/address/0xb2bcf4f2fed7f933255a604f36e5a713dd30425e" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                CELO_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge">
+                <img src="/images/networks/INK.svg" alt="Inkchain" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Ink</h3>
+                <p className="chain-id">Chain ID: 57073</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://explorer.inkonchain.com/address/0x2b426387571C3e31b3C9A3C5A91dbeF5CEa64143" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                INKCHAIN_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge">
+                <img src="/images/networks/PLUME.svg" alt="Plume" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Plume</h3>
+                <p className="chain-id">Chain ID: 98866</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://explorer.plume.org/address/0x4A6814b1E0c0EE505665E819a4317cc12C72DeBF" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                PLUME_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
      
       </div>    
       <div className="docs-section"></div>
