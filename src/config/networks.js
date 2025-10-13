@@ -183,6 +183,18 @@ export const NETWORKS = [
     isTestnet: false
   },
   {
+    id: 'worldchain',
+    name: 'World Chain',
+    chainId: 480,
+    contractAddress: '0x55c7d6ce1d1f55d332b225002d71933c8ab18772',
+    rpcUrl: 'https://worldchain.drpc.org',
+    icon: 'WORLD',
+    logo: '/images/networks/WORLD.svg',
+    explorerUrl: 'https://worldscan.org/',
+    currency: 'ETH',
+    isTestnet: false
+  },
+  {
     id: 'plume',
     name: 'Plume',
     chainId: 98866,

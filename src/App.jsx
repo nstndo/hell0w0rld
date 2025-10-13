@@ -25,8 +25,8 @@ const ethersConfig = defaultConfig({
   metadata: {
     name: 'Hello World',
     description: 'Daily blockchain check-in',
-    url: 'https://hell0w0rld.vercel.app',
-    icons: ['https://hell0w0rld.vercel.app/icon.png']
+    url: 'https://hell0w0rld.xyz',
+    icons: ['https://hell0w0rld.xyz/icon.png']
   }
 });
 
@@ -151,7 +151,7 @@ function App() {
       updateStatus(network.id, { type: 'info', message: 'Confirming transaction...' });
       await tx.wait();
 
-      // Небольшая задержка для обновления state на RPC ноде
+      // Delay for state's renew
       await new Promise(resolve => setTimeout(resolve, 1500));
 
       const stats = await contract.getUserStats(address);
