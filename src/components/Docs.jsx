@@ -202,6 +202,29 @@ const Docs = () => {
               </a>
             </div>
           </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge">
+                <img src="/images/networks/HYPE.svg" alt="HyperEVM" className="badge-logo" />
+              </div>
+              <div>
+                <h3>HyperEVM</h3>
+                <p className="chain-id">Chain ID: 999</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://www.hyperscan.com/address/0x790b0C531889e8B5E8dAE48914CB33fc90b7E3a6" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                HYPEREVM_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
      
       </div>    
       <div className="docs-section"></div>

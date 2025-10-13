@@ -217,6 +217,18 @@ export const NETWORKS = [
     explorerUrl: 'https://explorer.plume.org/',
     currency: 'PLUME',
     isTestnet: false
+  },
+  {
+    id: 'hyperevm',
+    name: 'HyperEVM',
+    chainId: 999,
+    contractAddress: '0x790b0C531889e8B5E8dAE48914CB33fc90b7E3a6',
+    rpcUrl: 'https://hyperliquid.drpc.org',
+    icon: 'HYPE',
+    logo: '/images/networks/HYPE.svg',
+    explorerUrl: 'https://www.hyperscan.com/',
+    currency: 'HYPE',
+    isTestnet: false
   }
 ];
 
