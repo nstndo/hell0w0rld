@@ -195,6 +195,18 @@ export const NETWORKS = [
     isTestnet: false
   },
   {
+    id: 'lisk',
+    name: 'Lisk',
+    chainId: 1135,
+    contractAddress: '0x551872486F03DD194c40c2249a79f080c1e7Cd13',
+    rpcUrl: 'https://lisk.drpc.org',
+    icon: 'LISK',
+    logo: '/images/networks/LISK.svg',
+    explorerUrl: 'https://blockscout.lisk.com/',
+    currency: 'ETH',
+    isTestnet: false
+  },
+  {
     id: 'plume',
     name: 'Plume',
     chainId: 98866,
