@@ -52,7 +52,7 @@ function HomePage({ executeHello, statuses, isConnected }) {
     <div className="container">
       <div className="intro">
         <h1>HELLO WORLD!</h1>
-        <p>Connect your wallet and say Hello to the blockchain. Check in daily across multiple networks and build your streak!</p>
+        <p>Connect your wallet and say Hello World daily. Build your onchain streak across multiple networks. Free. Just gas fee.</p>
       </div>
 
       <NetworkTabs activeTab={activeTab} onTabChange={setActiveTab} />
