@@ -7,7 +7,7 @@ const ScrambleLogo = () => {
   const intervalRef = useRef(null);
   const originalText = 'HELLO WORLD';
   
-  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789%№@#$&*';
   
   useEffect(() => {
     if (isHovering) {
