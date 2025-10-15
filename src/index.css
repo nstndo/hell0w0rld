@@ -575,4 +575,10 @@ body {
   .docs-header h1 {
     font-size: 2rem;
   }
+
+  .theme-toggle {
+    padding: .3rem;
+    width: 32px;
+    height: 32px;
+  }
 }
