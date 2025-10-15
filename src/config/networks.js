@@ -121,6 +121,18 @@ export const NETWORKS = [
     currency: 'ANKR',
     isTestnet: true
   },
+  {
+    id: 'haust network',
+    name: 'Haust Network',
+    chainId: 1523903251,
+    contractAddress: '0x3480fF98c739cFA0015C5f02fbe37C7C92E04D10',
+    rpcUrl: 'https://rpc-testnet.haust.app',
+    icon: 'HAUST',
+    logo: '/images/networks/HAUST.svg',
+    explorerUrl: 'https://explorer-testnet.haust.app/',
+    currency: 'HAUST',
+    isTestnet: true
+  },
   // Mainnets
   {
     id: 'base',

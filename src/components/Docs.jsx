@@ -461,6 +461,30 @@ const Docs = () => {
               </a>
             </div>
           </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge sepolia">
+                <img src="/images/networks/HAUST.svg" alt="Haust Network Testnet" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Haust Network Testnet</h3>
+                <p className="chain-id">Chain ID: 1523903251</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://explorer-testnet.haust.app/address/0x3480fF98c739cFA0015C5f02fbe37C7C92E04D10" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                HAUST_TESTNET_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
+
         </div>
       </div>
 
