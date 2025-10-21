@@ -62,6 +62,18 @@ export const NETWORKS = [
     isTestnet: true
   },
   {
+    id: 'pharos-atlantic-testnet',
+    name: 'Pharos Atlantic Testnet',
+    chainId: 688689,
+    contractAddress: '0x00bf43d03867434636c2397ada3d3f6d01f9d53b',
+    rpcUrl: 'https://atlantic.dplabs-internal.com',
+    icon: 'PHRS',
+    logo: '/images/networks/PHRS.svg',
+    explorerUrl: 'https://atlantic.pharosscan.xyz/',
+    currency: 'PHRS',
+    isTestnet: true
+  },
+  {
     id: 'rise-testnet',
     name: 'Rise Testnet',
     chainId: 11155931,

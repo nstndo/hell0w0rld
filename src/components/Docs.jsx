@@ -350,6 +350,29 @@ const Docs = () => {
           <div className="contract-row">
             <div className="contract-network">
               <div className="network-badge sepolia">
+                <img src="/images/networks/PHRS.svg" alt="Pharos Atlantic Testnet" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Pharos Atlantic Testnet</h3>
+                <p className="chain-id">Chain ID: 688689</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://atlantic.pharosscan.xyz/address/0x00bf43d03867434636c2397ada3d3f6d01f9d53b" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                PHAROS_ATLANTIC_TESTNET_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge sepolia">
                 <img src="/images/networks/RISE.svg" alt="Rise Testnet" className="badge-logo" />
               </div>
               <div>
