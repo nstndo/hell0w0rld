@@ -98,30 +98,6 @@ export const NETWORKS = [
     isTestnet: true
   },
   {
-    id: 'kadena-testnet-20',
-    name: 'Kadena Chainweb Testnet',
-    chainId: 5920,
-    contractAddress: '0x7f81BFb73cb29C3725779ec2C060787DaA2f97d4',
-    rpcUrl: 'https://evm-testnet.chainweb.com/chainweb/0.0/evm-testnet/chain/20/evm/rpc',
-    icon: 'KDA',
-    logo: '/images/networks/KDA.svg',
-    explorerUrl: 'https://chain-20.evm-testnet-blockscout.chainweb.com/',
-    currency: 'KDA',
-    isTestnet: true
-  },
-  {
-    id: 'kadena-testnet-21',
-    name: 'Kadena Chainweb Testnet',
-    chainId: 5921,
-    contractAddress: '0xd0c205e3C704595113FB8006379EDd1Bc89B2A17',
-    rpcUrl: 'https://evm-testnet.chainweb.com/chainweb/0.0/evm-testnet/chain/21/evm/rpc',
-    icon: 'KDA',
-    logo: '/images/networks/KDA.svg',
-    explorerUrl: 'https://chain-21.evm-testnet-blockscout.chainweb.com/',
-    currency: 'KDA',
-    isTestnet: true
-  },
-  {
     id: 'neura protocol',
     name: 'Neura',
     chainId: 267,
