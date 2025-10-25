@@ -206,6 +206,29 @@ const Docs = () => {
           <div className="contract-row">
             <div className="contract-network">
               <div className="network-badge">
+                <img src="/images/networks/ARB.svg" alt="Arbitrum" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Arbitrum</h3>
+                <p className="chain-id">Chain ID: 42161</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://arbiscan.io/address/0x4b1b3c8A09B82aDbC93d8f3897B384b5f55A2B7a" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                ARBITRUM_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge">
                 <img src="/images/networks/PLUME.svg" alt="Plume" className="badge-logo" />
               </div>
               <div>

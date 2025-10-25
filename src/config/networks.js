@@ -231,6 +231,18 @@ export const NETWORKS = [
     isTestnet: false
   },
   {
+    id: 'arbitrum',
+    name: 'Arbitrum',
+    chainId: 42161,
+    contractAddress: '0x4b1b3c8A09B82aDbC93d8f3897B384b5f55A2B7a',
+    rpcUrl: 'https://arbitrum.rpc.subquery.network/public',
+    icon: 'ARB',
+    logo: '/images/networks/ARB.svg',
+    explorerUrl: 'https://arbiscan.io/',
+    currency: 'ARB',
+    isTestnet: false
+  },
+  {
     id: 'plume',
     name: 'Plume',
     chainId: 98866,
