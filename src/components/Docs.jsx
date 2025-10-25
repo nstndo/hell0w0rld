@@ -370,7 +370,7 @@ const Docs = () => {
                 <img src="/images/networks/XPL.svg" alt="Plasma" className="badge-logo" />
               </div>
               <div>
-                <h3>XPL</h3>
+                <h3>Plasma</h3>
                 <p className="chain-id">Chain ID: 9745</p>
               </div>
             </div>
