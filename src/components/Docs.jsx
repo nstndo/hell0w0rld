@@ -692,6 +692,29 @@ const Docs = () => {
             </div>
           </div>
 
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge sepolia">
+                <img src="/images/networks/GOKITE.svg" alt="KiteAI Testnet" className="badge-logo" />
+              </div>
+              <div>
+                <h3>KiteAI Testnet</h3>
+                <p className="chain-id">Chain ID: 2368</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://testnet.kitescan.ai/address/0xf890a35d2f3c76182a7f1db593da78d4a389d257" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                KITEAI_TESTNET_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
+
         </div>
       </div>
 

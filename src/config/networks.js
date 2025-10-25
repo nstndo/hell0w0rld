@@ -145,6 +145,18 @@ export const NETWORKS = [
     currency: 'ETH',
     isTestnet: true
   },
+  {
+    id: 'kiteai-testnet',
+    name: 'KiteAI Testnet',
+    chainId: 2368,
+    contractAddress: '0xf890a35d2f3c76182a7f1db593da78d4a389d257',
+    rpcUrl: 'https://rpc-testnet.gokite.ai',
+    icon: 'GOKITE',
+    logo: '/images/networks/GOKITE.svg',
+    explorerUrl: 'https://testnet.kitescan.ai/',
+    currency: 'GOKITE',
+    isTestnet: true
+  },
   // Mainnets
   {
     id: 'base',
