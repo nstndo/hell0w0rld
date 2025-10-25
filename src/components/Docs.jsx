@@ -225,6 +225,29 @@ const Docs = () => {
               </a>
             </div>
           </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge">
+                <img src="/images/networks/SONEIUM.svg" alt="HyperEVM" className="badge-logo" />
+              </div>
+              <div>
+                <h3>SONEIUM</h3>
+                <p className="chain-id">Chain ID: 1868</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://soneium.blockscout.com/address/0x6732D612b2e9DeEb3DA2BB1221fBe6d2428175E1" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                SONEIUM_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
      
       </div>    
       <div className="docs-section"></div>

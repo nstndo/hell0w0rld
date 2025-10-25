@@ -241,6 +241,18 @@ export const NETWORKS = [
     explorerUrl: 'https://www.hyperscan.com/',
     currency: 'HYPE',
     isTestnet: false
+  },
+  {
+    id: 'soneium',
+    name: 'Soneium',
+    chainId: 1868,
+    contractAddress: '0x6732D612b2e9DeEb3DA2BB1221fBe6d2428175E1',
+    rpcUrl: 'https://rpc.soneium.org',
+    icon: 'SONEIUM',
+    logo: '/images/networks/SONEIUM.svg',
+    explorerUrl: 'https://soneium.blockscout.com/',
+    currency: 'ETH',
+    isTestnet: false
   }
 ];
 
