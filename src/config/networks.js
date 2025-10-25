@@ -313,6 +313,18 @@ export const NETWORKS = [
     explorerUrl: 'https://zorascan.xyz/',
     currency: 'ETH',
     isTestnet: false
+  },
+  {
+    id: '0g',
+    name: '0G',
+    chainId: 16661,
+    contractAddress: '0xd71cae47f4b4c800e82d9613bce0f1e40ae4932e',
+    rpcUrl: 'https://evmrpc.0g.ai',
+    icon: '0G',
+    logo: '/images/networks/0G.svg',
+    explorerUrl: 'https://chainscan.0g.ai/',
+    currency: '0G',
+    isTestnet: false
   }
 ];
 

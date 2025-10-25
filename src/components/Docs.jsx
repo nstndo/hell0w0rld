@@ -363,6 +363,29 @@ const Docs = () => {
               </a>
             </div>
           </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge">
+                <img src="/images/networks/0G.svg" alt="0G" className="badge-logo" />
+              </div>
+              <div>
+                <h3>0G</h3>
+                <p className="chain-id">Chain ID: 16661</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://chainscan.0g.ai/address/0xd71cae47f4b4c800e82d9613bce0f1e40ae4932e" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                0G_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
      
       </div>    
       <div className="docs-section"></div>
