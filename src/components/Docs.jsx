@@ -367,6 +367,29 @@ const Docs = () => {
           <div className="contract-row">
             <div className="contract-network">
               <div className="network-badge">
+                <img src="/images/networks/XPL.svg" alt="Plasma" className="badge-logo" />
+              </div>
+              <div>
+                <h3>XPL</h3>
+                <p className="chain-id">Chain ID: 9745</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://plasmascan.to/address/0xa68C670133b7b8178ec43Eb01d93be6E5C3B65A8" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                PLASMA_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge">
                 <img src="/images/networks/0G.svg" alt="0G" className="badge-logo" />
               </div>
               <div>

@@ -315,6 +315,18 @@ export const NETWORKS = [
     isTestnet: false
   },
   {
+    id: 'plasma',
+    name: 'Plasma',
+    chainId: 9745,
+    contractAddress: '0xa68C670133b7b8178ec43Eb01d93be6E5C3B65A8',
+    rpcUrl: 'https://rpc.plasma.to',
+    icon: 'XPL',
+    logo: '/images/networks/XPL.svg',
+    explorerUrl: 'https://plasmascan.to/',
+    currency: 'XPL',
+    isTestnet: false
+  },
+  {
     id: '0g',
     name: '0G',
     chainId: 16661,
