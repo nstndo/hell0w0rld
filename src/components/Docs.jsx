@@ -462,6 +462,29 @@ const Docs = () => {
             </div>
           </div>
 
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge sepolia">
+                <img src="/images/networks/JOVAY.svg" alt="Jovay Testnet" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Jovay Testnet</h3>
+                <p className="chain-id">Chain ID: 2019775</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://sepolia-explorer.jovay.io/l2/address/0xd0c205e3c704595113fb8006379edd1bc89b2a17" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                JOVAY_TESTNET_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
+
         </div>
       </div>
 

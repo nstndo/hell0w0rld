@@ -98,8 +98,8 @@ export const NETWORKS = [
     isTestnet: true
   },
   {
-    id: 'neura protocol',
-    name: 'Neura',
+    id: 'neura-protocol',
+    name: 'Neura Testnet',
     chainId: 267,
     contractAddress: '0xD71caE47F4B4C800E82d9613BCe0f1E40Ae4932e',
     rpcUrl: 'https://testnet.rpc.neuraprotocol.io/',
@@ -110,8 +110,8 @@ export const NETWORKS = [
     isTestnet: true
   },
   {
-    id: 'haust network',
-    name: 'Haust Network',
+    id: 'haust-testnet-network',
+    name: 'Haust Testnet Network',
     chainId: 1523903251,
     contractAddress: '0x3480fF98c739cFA0015C5f02fbe37C7C92E04D10',
     rpcUrl: 'https://rpc-testnet.haust.app',
@@ -119,6 +119,18 @@ export const NETWORKS = [
     logo: '/images/networks/HAUST.svg',
     explorerUrl: 'https://explorer-testnet.haust.app/',
     currency: 'HAUST',
+    isTestnet: true
+  },
+  {
+    id: 'jovay-testnet',
+    name: 'Jovay Testnet',
+    chainId: 2019775,
+    contractAddress: '0xd0c205e3c704595113fb8006379edd1bc89b2a17',
+    rpcUrl: 'https://api.zan.top/public/jovay-testnet',
+    icon: 'JOVAY',
+    logo: '/images/networks/JOVAY.svg',
+    explorerUrl: 'https://sepolia-explorer.jovay.io/',
+    currency: 'ETH',
     isTestnet: true
   },
   // Mainnets
