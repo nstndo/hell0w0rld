@@ -321,6 +321,29 @@ const Docs = () => {
           <div className="contract-row">
             <div className="contract-network">
               <div className="network-badge">
+                <img src="/images/networks/LENS.svg" alt="Lens Chain" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Lens Chain</h3>
+                <p className="chain-id">Chain ID: 232</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://explorer.lens.xyz/address/0xC383EA1256c8E04b3973B872d469888D47B19c34" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                LENS_CHAIN_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge">
                 <img src="/images/networks/ZORA.svg" alt="Zora" className="badge-logo" />
               </div>
               <div>

@@ -291,6 +291,18 @@ export const NETWORKS = [
     isTestnet: false
   },
   {
+    id: 'lens',
+    name: 'Lens Chain',
+    chainId: 232,
+    contractAddress: '0xC383EA1256c8E04b3973B872d469888D47B19c34',
+    rpcUrl: 'https://rpc.lens.xyz',
+    icon: 'LENS',
+    logo: '/images/networks/LENS.svg',
+    explorerUrl: 'https://explorer.lens.xyz/',
+    currency: 'GHO',
+    isTestnet: false
+  },
+  {
     id: 'zora',
     name: 'Zora',
     chainId: 7777777,
