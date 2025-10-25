@@ -669,6 +669,29 @@ const Docs = () => {
             </div>
           </div>
 
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge sepolia">
+                <img src="/images/networks/GIWA.svg" alt="Giwa Testnet" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Giwa Testnet</h3>
+                <p className="chain-id">Chain ID: 91342</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://sepolia-explorer.giwa.io/address/0x0216f955f5062913cac97a95F28D57570ae3c9c1" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                GIWA_TESTNET_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
+
         </div>
       </div>
 

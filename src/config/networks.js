@@ -133,6 +133,18 @@ export const NETWORKS = [
     currency: 'ETH',
     isTestnet: true
   },
+  {
+    id: 'giwa-testnet',
+    name: 'Giwa Testnet',
+    chainId: 91342,
+    contractAddress: '0x0216f955f5062913cac97a95F28D57570ae3c9c1',
+    rpcUrl: 'https://sepolia-rpc.giwa.io',
+    icon: 'GIWA',
+    logo: '/images/networks/GIWA.svg',
+    explorerUrl: 'https://sepolia-explorer.giwa.io/',
+    currency: 'ETH',
+    isTestnet: true
+  },
   // Mainnets
   {
     id: 'base',
