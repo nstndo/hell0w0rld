@@ -317,6 +317,29 @@ const Docs = () => {
               </a>
             </div>
           </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge">
+                <img src="/images/networks/ZORA.svg" alt="Zora" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Zora</h3>
+                <p className="chain-id">Chain ID: 7777777</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://zorascan.xyz/address/0x6eF5A563e26a7C898014C15ad866e75014E3A8BE" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                ZORA_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
      
       </div>    
       <div className="docs-section"></div>

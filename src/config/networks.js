@@ -289,6 +289,18 @@ export const NETWORKS = [
     explorerUrl: 'https://explorer.katanarpc.com/',
     currency: 'ETH',
     isTestnet: false
+  },
+  {
+    id: 'zora',
+    name: 'Zora',
+    chainId: 7777777,
+    contractAddress: '0x6eF5A563e26a7C898014C15ad866e75014E3A8BE',
+    rpcUrl: 'https://zora.drpc.org',
+    icon: 'ZORA',
+    logo: '/images/networks/ZORA.svg',
+    explorerUrl: 'https://zorascan.xyz/',
+    currency: 'ETH',
+    isTestnet: false
   }
 ];
 
