@@ -219,6 +219,18 @@ export const NETWORKS = [
     isTestnet: false
   },
   {
+    id: 'linea',
+    name: 'Linea',
+    chainId: 59144,
+    contractAddress: '0xda634574ea8b5ae57d3baf4744c50b78653aaf25',
+    rpcUrl: 'https://rpc.linea.build',
+    icon: 'LINEA',
+    logo: '/images/networks/LINEA.svg',
+    explorerUrl: 'https://lineascan.build/',
+    currency: 'ETH',
+    isTestnet: false
+  },
+  {
     id: 'plume',
     name: 'Plume',
     chainId: 98866,

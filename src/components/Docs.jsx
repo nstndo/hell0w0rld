@@ -183,6 +183,29 @@ const Docs = () => {
           <div className="contract-row">
             <div className="contract-network">
               <div className="network-badge">
+                <img src="/images/networks/LINEA.svg" alt="Linea" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Linea</h3>
+                <p className="chain-id">Chain ID: 59144</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://lineascan.build/address/0xda634574ea8b5ae57d3baf4744c50b78653aaf25" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                LINEA_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge">
                 <img src="/images/networks/PLUME.svg" alt="Plume" className="badge-logo" />
               </div>
               <div>
