@@ -253,6 +253,18 @@ export const NETWORKS = [
     explorerUrl: 'https://soneium.blockscout.com/',
     currency: 'ETH',
     isTestnet: false
+  },
+  {
+    id: 'katana',
+    name: 'Katana',
+    chainId: 747474,
+    contractAddress: '0x200A33143a4867c292fc8686E0B44dBe30Da6E5d',
+    rpcUrl: 'https://rpc.katana.network',
+    icon: 'KAT',
+    logo: '/images/networks/KAT.svg',
+    explorerUrl: 'https://explorer.katanarpc.com/',
+    currency: 'ETH',
+    isTestnet: false
   }
 ];
 

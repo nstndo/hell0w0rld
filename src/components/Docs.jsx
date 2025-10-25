@@ -229,7 +229,7 @@ const Docs = () => {
           <div className="contract-row">
             <div className="contract-network">
               <div className="network-badge">
-                <img src="/images/networks/SONEIUM.svg" alt="HyperEVM" className="badge-logo" />
+                <img src="/images/networks/SONEIUM.svg" alt="Soneium" className="badge-logo" />
               </div>
               <div>
                 <h3>SONEIUM</h3>
@@ -244,6 +244,29 @@ const Docs = () => {
                 className="address-link"
               >
                 SONEIUM_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge">
+                <img src="/images/networks/KAT.svg" alt="Katana" className="badge-logo" />
+              </div>
+              <div>
+                <h3>KATANA</h3>
+                <p className="chain-id">Chain ID: 747474</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://explorer.katanarpc.com/address/0x200A33143a4867c292fc8686E0B44dBe30Da6E5d" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                KATANA_CONTRACT
                 <span className="external-icon">↗</span>
               </a>
             </div>
