@@ -385,6 +385,18 @@ export const NETWORKS = [
     explorerUrl: 'https://apescan.io/',
     currency: 'APE',
     isTestnet: false
+  },
+  {
+    id: 'somnia',
+    name: 'Somnia',
+    chainId: 5031,
+    contractAddress: '0x00Bf43d03867434636c2397AdA3D3f6d01f9d53B',
+    rpcUrl: 'https://api.infra.mainnet.somnia.network',
+    icon: 'SOMI',
+    logo: '/images/networks/SOMI.svg',
+    explorerUrl: 'https://explorer.somnia.network/',
+    currency: 'SOMI',
+    isTestnet: false
   }
 ];
 

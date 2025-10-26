@@ -432,6 +432,29 @@ const Docs = () => {
               </a>
             </div>
           </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge">
+                <img src="/images/networks/SOMI.svg" alt="Somnia" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Somnia</h3>
+                <p className="chain-id">Chain ID: 5031</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://explorer.somnia.network/address/0x00Bf43d03867434636c2397AdA3D3f6d01f9d53B" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                SOMNIA_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
      
       </div>    
       <div className="docs-section"></div>
