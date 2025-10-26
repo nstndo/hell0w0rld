@@ -361,6 +361,18 @@ export const NETWORKS = [
     explorerUrl: 'https://chainscan.0g.ai/',
     currency: '0G',
     isTestnet: false
+  },
+  {
+    id: 'apechain',
+    name: 'ApeChain',
+    chainId: 33139,
+    contractAddress: '0xDf520F324a5061A447084cF159037F35Fb2C4C89',
+    rpcUrl: 'https://rpc.apechain.com',
+    icon: 'APE',
+    logo: '/images/networks/APE.svg',
+    explorerUrl: 'https://apescan.io/',
+    currency: 'APE',
+    isTestnet: false
   }
 ];
 

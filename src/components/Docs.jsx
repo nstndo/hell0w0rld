@@ -409,6 +409,29 @@ const Docs = () => {
               </a>
             </div>
           </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge">
+                <img src="/images/networks/APE.svg" alt="ApeChain" className="badge-logo" />
+              </div>
+              <div>
+                <h3>ApeChain</h3>
+                <p className="chain-id">Chain ID: 33139</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://apescan.io/address/0xDf520F324a5061A447084cF159037F35Fb2C4C89" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                APECHAIN_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
      
       </div>    
       <div className="docs-section"></div>
