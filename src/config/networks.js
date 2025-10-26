@@ -157,6 +157,18 @@ export const NETWORKS = [
     currency: 'GOKITE',
     isTestnet: true
   },
+  {
+    id: 'sandchain-testnet',
+    name: 'SANDchain Testnet (Silica)',
+    chainId: 6252,
+    contractAddress: '0xD71caE47F4B4C800E82d9613BCe0f1E40Ae4932e',
+    rpcUrl: 'https://sandchain-rpc.caldera.xyz/http',
+    icon: 'SAND',
+    logo: '/images/networks/SAND.svg',
+    explorerUrl: 'https://sandchain-explorer.caldera.xyz/',
+    currency: 'SAND',
+    isTestnet: true
+  },
   // Mainnets
   {
     id: 'base',
