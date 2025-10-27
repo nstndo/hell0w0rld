@@ -397,6 +397,18 @@ export const NETWORKS = [
     explorerUrl: 'https://explorer.somnia.network/',
     currency: 'SOMI',
     isTestnet: false
+  },
+  {
+    id: 'haust',
+    name: 'Haust Network',
+    chainId: 3864,
+    contractAddress: '0xd0c205e3C704595113FB8006379EDd1Bc89B2A17',
+    rpcUrl: 'https://haust-network-rpc.eu-north-2.gateway.fm',
+    icon: 'HAUST',
+    logo: '/images/networks/HAUST.svg',
+    explorerUrl: 'https://haustscan.com/',
+    currency: 'HAUST',
+    isTestnet: false
   }
 ];
 
