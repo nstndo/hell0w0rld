@@ -10,7 +10,7 @@ import NetworkTabs from './components/NetworkTabs';
 import Footer from './components/Footer';
 import Docs from './components/Docs';
 
-// Spinner component for button loading indicator
+// Spinner component
 function Spinner() {
   return (
     <div style={{
@@ -26,6 +26,7 @@ function Spinner() {
     }} />
   );
 }
+
 const styleSheet = document.styleSheets[0];
 styleSheet.insertRule(`
 @keyframes spin {
@@ -98,12 +99,14 @@ function HomePage({ executeHello, statuses, isConnected, loadingStates }) {
 function App() {
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
   const [statuses, setStatuses] = useState({});
-  const [loadingStates, setLoadingStates] = useState({}); // per-network loading states
+  const [loadingStates, setLoadingStates] = useState({});
   const { address, chainId, isConnected } = useWeb3ModalAccount();
   const { walletProvider } = useWeb3ModalProvider();
 
-  // This ref holds promises queues for each network to serialize executeHello calls
+  // Queue reference per network to serialize transactions
   const queuesRef = useRef({});
+  // Track active request ID per network to ignore stale responses
+  const requestIdRef = useRef({});
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -118,28 +121,53 @@ function App() {
     setStatuses(prev => ({ ...prev, [networkId]: status }));
   };
 
-  // Enqueue a task per network in a queue to avoid concurrent execution per network
+  // Enqueue task to serialize execution per network
   const enqueue = (networkId, task) => {
     if (!queuesRef.current[networkId]) {
       queuesRef.current[networkId] = Promise.resolve();
     }
-    queuesRef.current[networkId] = queuesRef.current[networkId].then(() => task());
+    queuesRef.current[networkId] = queuesRef.current[networkId]
+      .then(() => task())
+      .catch(err => {
+        console.error(`Error in queue for network ${networkId}:`, err);
+      });
     return queuesRef.current[networkId];
   };
 
-  // Main executeHello function wraps its logic in enqueue to serialize per network
   const executeHello = (network) => {
-    // If wallet/provider/address not ready, just skip
     if (!walletProvider || !address) return;
 
-    // Task to execute blockchain logic
+    // Increment request ID for this network to track stale requests
+    if (!requestIdRef.current[network.id]) {
+      requestIdRef.current[network.id] = 0;
+    }
+    requestIdRef.current[network.id]++;
+    const currentRequestId = requestIdRef.current[network.id];
+
     const task = async () => {
+      // Check if this request is still current (prevent stale updates)
+      if (currentRequestId !== requestIdRef.current[network.id]) {
+        return;
+      }
+
       setLoadingStates(prev => ({ ...prev, [network.id]: true }));
 
+      // Declare all resource pointers to ensure cleanup
+      let ethersProvider = null;
+      let signer = null;
+      let contract = null;
+
       try {
+        // Check again before starting (in case request was superseded)
+        if (currentRequestId !== requestIdRef.current[network.id]) {
+          return;
+        }
+
         updateStatus(network.id, { type: 'info', message: 'Switching network...' });
-        const ethersProvider = new BrowserProvider(walletProvider);
-        const signer = await ethersProvider.getSigner();
+        
+        // Create provider only when needed
+        ethersProvider = new BrowserProvider(walletProvider);
+        signer = await ethersProvider.getSigner();
 
         if (chainId !== network.chainId) {
           try {
@@ -169,8 +197,19 @@ function App() {
           }
         }
 
+        // Check again before proceeding
+        if (currentRequestId !== requestIdRef.current[network.id]) {
+          return;
+        }
+
         updateStatus(network.id, { type: 'info', message: 'Checking if you can say hello...' });
-        const contract = new Contract(network.contractAddress, CONTRACT_ABI, signer);
+        
+        // Create contract instance with explicit cleanup plan
+        contract = new Contract(network.contractAddress, CONTRACT_ABI, signer);
+        
+        // Remove all listeners to prevent memory leak
+        contract.removeAllListeners();
+
         const canSay = await contract.canSayHello(address);
 
         if (!canSay) {
@@ -185,13 +224,33 @@ function App() {
           return;
         }
 
+        // Check again before transaction
+        if (currentRequestId !== requestIdRef.current[network.id]) {
+          return;
+        }
+
         updateStatus(network.id, { type: 'info', message: 'Sending transaction...' });
         const tx = await contract.sayHello();
 
         updateStatus(network.id, { type: 'info', message: 'Confirming transaction...' });
         await tx.wait();
 
+        // Delay for state renewal
         await new Promise(resolve => setTimeout(resolve, 1500));
+
+        // Check one final time before getting stats
+        if (currentRequestId !== requestIdRef.current[network.id]) {
+          return;
+        }
+
+        // Recreate contract for final stats call (fresh instance)
+        if (contract) {
+          contract.removeAllListeners();
+          contract = null;
+        }
+        contract = new Contract(network.contractAddress, CONTRACT_ABI, signer);
+        contract.removeAllListeners();
+
         const stats = await contract.getUserStats(address);
         const streak = Number(stats._currentStreak);
         updateStatus(network.id, {
@@ -212,11 +271,33 @@ function App() {
           message: `❌ ${errorMessage}`,
         });
       } finally {
+        // EXPLICIT CLEANUP - очень важно!
+        try {
+          if (contract) {
+            contract.removeAllListeners();
+            contract = null;
+          }
+          if (signer) {
+            signer = null;
+          }
+          if (ethersProvider) {
+            // BrowserProvider не имеет явного destroy, но обнулим ссылку
+            ethersProvider = null;
+          }
+        } catch (cleanupError) {
+          console.error('Cleanup error:', cleanupError);
+        }
+
         setLoadingStates(prev => ({ ...prev, [network.id]: false }));
+
+        // Force garbage collection hint (if available)
+        if (global.gc) {
+          global.gc();
+        }
       }
     };
 
-    // Enqueue and start task in per-network queue
+    // Enqueue task for this network
     enqueue(network.id, task).catch(console.error);
   };
 
