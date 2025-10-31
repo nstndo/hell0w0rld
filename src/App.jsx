@@ -103,10 +103,10 @@ function App() {
   const { address, chainId, isConnected } = useWeb3ModalAccount();
   const { walletProvider } = useWeb3ModalProvider();
 
-  // Queue reference per network to serialize transactions
-  const queuesRef = useRef({});
-  // Track active request ID per network to ignore stale responses
-  const requestIdRef = useRef({});
+  // GLOBAL queue - only one transaction at a time for entire app
+  const globalQueueRef = useRef(Promise.resolve());
+  // Track current network being processed
+  const currentNetworkRef = useRef(null);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -121,51 +121,32 @@ function App() {
     setStatuses(prev => ({ ...prev, [networkId]: status }));
   };
 
-  // Enqueue task to serialize execution per network
-  const enqueue = (networkId, task) => {
-    if (!queuesRef.current[networkId]) {
-      queuesRef.current[networkId] = Promise.resolve();
-    }
-    queuesRef.current[networkId] = queuesRef.current[networkId]
+  // Enqueue task globally
+  const enqueueGlobal = (networkId, task) => {
+    globalQueueRef.current = globalQueueRef.current
       .then(() => task())
       .catch(err => {
-        console.error(`Error in queue for network ${networkId}:`, err);
+        console.error(`Error processing network ${networkId}:`, err);
       });
-    return queuesRef.current[networkId];
+    return globalQueueRef.current;
   };
 
   const executeHello = (network) => {
     if (!walletProvider || !address) return;
 
-    // Increment request ID for this network to track stale requests
-    if (!requestIdRef.current[network.id]) {
-      requestIdRef.current[network.id] = 0;
-    }
-    requestIdRef.current[network.id]++;
-    const currentRequestId = requestIdRef.current[network.id];
-
     const task = async () => {
-      // Check if this request is still current (prevent stale updates)
-      if (currentRequestId !== requestIdRef.current[network.id]) {
-        return;
-      }
-
       setLoadingStates(prev => ({ ...prev, [network.id]: true }));
+      currentNetworkRef.current = network.id;
 
-      // Declare all resource pointers to ensure cleanup
+      // Declare all resource pointers
       let ethersProvider = null;
       let signer = null;
       let contract = null;
 
       try {
-        // Check again before starting (in case request was superseded)
-        if (currentRequestId !== requestIdRef.current[network.id]) {
-          return;
-        }
-
         updateStatus(network.id, { type: 'info', message: 'Switching network...' });
         
-        // Create provider only when needed
+        // Create provider only once, inside try block
         ethersProvider = new BrowserProvider(walletProvider);
         signer = await ethersProvider.getSigner();
 
@@ -197,17 +178,9 @@ function App() {
           }
         }
 
-        // Check again before proceeding
-        if (currentRequestId !== requestIdRef.current[network.id]) {
-          return;
-        }
-
         updateStatus(network.id, { type: 'info', message: 'Checking if you can say hello...' });
         
-        // Create contract instance with explicit cleanup plan
         contract = new Contract(network.contractAddress, CONTRACT_ABI, signer);
-        
-        // Remove all listeners to prevent memory leak
         contract.removeAllListeners();
 
         const canSay = await contract.canSayHello(address);
@@ -220,12 +193,6 @@ function App() {
             type: 'error',
             message: `❌ Already said hello today! Try again in ${hours}h ${minutes}m`,
           });
-          setLoadingStates(prev => ({ ...prev, [network.id]: false }));
-          return;
-        }
-
-        // Check again before transaction
-        if (currentRequestId !== requestIdRef.current[network.id]) {
           return;
         }
 
@@ -235,18 +202,11 @@ function App() {
         updateStatus(network.id, { type: 'info', message: 'Confirming transaction...' });
         await tx.wait();
 
-        // Delay for state renewal
         await new Promise(resolve => setTimeout(resolve, 1500));
 
-        // Check one final time before getting stats
-        if (currentRequestId !== requestIdRef.current[network.id]) {
-          return;
-        }
-
-        // Recreate contract for final stats call (fresh instance)
+        // Fresh contract instance for final read
         if (contract) {
           contract.removeAllListeners();
-          contract = null;
         }
         contract = new Contract(network.contractAddress, CONTRACT_ABI, signer);
         contract.removeAllListeners();
@@ -271,7 +231,7 @@ function App() {
           message: `❌ ${errorMessage}`,
         });
       } finally {
-        // EXPLICIT CLEANUP - очень важно!
+        // CRITICAL: Properly destroy provider and clean up resources
         try {
           if (contract) {
             contract.removeAllListeners();
@@ -281,7 +241,10 @@ function App() {
             signer = null;
           }
           if (ethersProvider) {
-            // BrowserProvider не имеет явного destroy, но обнулим ссылку
+            // Use destroy() method if available (ethers v6)
+            if (typeof ethersProvider.destroy === 'function') {
+              ethersProvider.destroy();
+            }
             ethersProvider = null;
           }
         } catch (cleanupError) {
@@ -289,16 +252,15 @@ function App() {
         }
 
         setLoadingStates(prev => ({ ...prev, [network.id]: false }));
+        currentNetworkRef.current = null;
 
-        // Force garbage collection hint (if available)
-        if (global.gc) {
-          global.gc();
-        }
+        // Small delay to allow garbage collection
+        await new Promise(resolve => setTimeout(resolve, 100));
       }
     };
 
-    // Enqueue task for this network
-    enqueue(network.id, task).catch(console.error);
+    // Add to global queue
+    enqueueGlobal(network.id, task).catch(console.error);
   };
 
   return (
