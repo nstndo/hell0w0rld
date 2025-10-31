@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react';
 import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react';
@@ -10,10 +10,10 @@ import NetworkTabs from './components/NetworkTabs';
 import Footer from './components/Footer';
 import Docs from './components/Docs';
 
-// --- Spinner ---
+// --- Spinner component for indicating loading on button ---
 function Spinner() {
   return (
-    <div className="button-spinner" style={{
+    <div style={{
       display: 'inline-block',
       width: '16px',
       height: '16px',
@@ -22,16 +22,20 @@ function Spinner() {
       borderRadius: '50%',
       animation: 'spin 1s linear infinite',
       marginLeft: '8px',
-      verticalAlign: 'middle',
+      verticalAlign: 'middle'
     }} />
   );
 }
 
-// @keyframes spin {
-//   0% { transform: rotate(0deg); }
-//   100% { transform: rotate(360deg); }
-// }
+// Add keyframes for spin animation
+const styleSheet = document.styleSheets[0];
+styleSheet.insertRule(`
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}`, styleSheet.cssRules.length);
 
+// Web3modal config
 const projectId = '90f5a0d4425e8c5b3c7f51c08ceba705';
 
 const chains = NETWORKS.map(network => ({
@@ -62,9 +66,11 @@ createWeb3Modal({
   }
 });
 
+// HomePage component
 function HomePage({ executeHello, statuses, isConnected, loadingStates }) {
   const [activeTab, setActiveTab] = useState('mainnet');
 
+  // Filter networks based on active tab
   const filteredNetworks = NETWORKS.filter(network =>
     activeTab === 'testnet' ? network.isTestnet : !network.isTestnet
   );
@@ -94,13 +100,15 @@ function HomePage({ executeHello, statuses, isConnected, loadingStates }) {
   );
 }
 
+// Main App component
 function App() {
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
   const [statuses, setStatuses] = useState({});
-  const [loadingStates, setLoadingStates] = useState({});
+  const [loadingStates, setLoadingStates] = useState({}); // per-button loading state
   const { address, chainId, isConnected } = useWeb3ModalAccount();
   const { walletProvider } = useWeb3ModalProvider();
 
+  // Theme toggle logic
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
@@ -110,18 +118,29 @@ function App() {
     setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
   };
 
+  // Helper to update status messages
   const updateStatus = (networkId, status) => {
     setStatuses(prev => ({ ...prev, [networkId]: status }));
   };
 
+  // executeHello with per-button loading and debounce
+  const lastClickRef = useRef({}); // for debounce per network
+
   const executeHello = async (network) => {
     if (!walletProvider || !address) return;
 
+    const now = Date.now();
+    if (lastClickRef.current[network.id] && now - lastClickRef.current[network.id] < 1500) {
+      // debounce: ignore if clicked again within 1.5 sec
+      return;
+    }
+    lastClickRef.current[network.id] = now;
+
+    // Set loading spin on specific button
     setLoadingStates(prev => ({ ...prev, [network.id]: true }));
 
     try {
       updateStatus(network.id, { type: 'info', message: 'Switching network...' });
-
       const ethersProvider = new BrowserProvider(walletProvider);
       const signer = await ethersProvider.getSigner();
 
@@ -132,6 +151,7 @@ function App() {
             params: [{ chainId: `0x${network.chainId.toString(16)}` }],
           });
         } catch (error) {
+          // Handle network add if network not found
           if (error.code === 4902) {
             await walletProvider.request({
               method: 'wallet_addEthereumChain',
@@ -141,11 +161,11 @@ function App() {
                 nativeCurrency: {
                   name: network.currency,
                   symbol: network.currency,
-                  decimals: 18,
+                  decimals: 18
                 },
                 rpcUrls: [network.rpcUrl],
-                blockExplorerUrls: [network.explorerUrl],
-              }],
+                blockExplorerUrls: [network.explorerUrl]
+              }]
             });
           } else {
             throw error;
@@ -196,6 +216,7 @@ function App() {
         message: `❌ ${errorMessage}`,
       });
     } finally {
+      // Remove loading indicator for specific network button
       setLoadingStates(prev => ({ ...prev, [network.id]: false }));
     }
   };
