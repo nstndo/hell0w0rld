@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react';
 import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react';
@@ -77,6 +77,11 @@ function App() {
   const [statuses, setStatuses] = useState({});
   const { address, chainId, isConnected } = useWeb3ModalAccount();
   const { walletProvider } = useWeb3ModalProvider();
+  
+  // Track active transactions
+  const activeTransactions = useRef(new Set());
+  const transactionQueue = useRef([]);
+  const isProcessingQueue = useRef(false);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -91,10 +96,67 @@ function App() {
     setStatuses(prev => ({ ...prev, [networkId]: status }));
   };
 
+  const processTransactionQueue = async () => {
+    if (isProcessingQueue.current || transactionQueue.current.length === 0) {
+      return;
+    }
+
+    isProcessingQueue.current = true;
+
+    while (transactionQueue.current.length > 0) {
+      const { network, resolve, reject } = transactionQueue.current.shift();
+      
+      try {
+        await executeHelloInternal(network);
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+      
+      // Small delay between transactions to prevent MetaMask overload
+      await new Promise(resolve => setTimeout(resolve, 300));
+    }
+
+    isProcessingQueue.current = false;
+  };
+
   const executeHello = async (network) => {
+    // Check if already processing this network
+    if (activeTransactions.current.has(network.id)) {
+      updateStatus(network.id, { 
+        type: 'error', 
+        message: '⏳ Transaction already in progress for this network' 
+      });
+      return;
+    }
+
+    // Add to active transactions
+    activeTransactions.current.add(network.id);
+
+    // Add to queue
+    return new Promise((resolve, reject) => {
+      transactionQueue.current.push({ network, resolve, reject });
+      processTransactionQueue();
+    }).finally(() => {
+      // Remove from active transactions when done
+      activeTransactions.current.delete(network.id);
+    });
+  };
+
+  const executeHelloInternal = async (network) => {
     if (!walletProvider || !address) return;
 
+    let networkChanged = false;
+    const handleChainChanged = () => {
+      networkChanged = true;
+    };
+
     try {
+      // Listen for network changes
+      if (window.ethereum) {
+        window.ethereum.on('chainChanged', handleChainChanged);
+      }
+
       updateStatus(network.id, { type: 'info', message: 'Switching network...' });
 
       const ethersProvider = new BrowserProvider(walletProvider);
@@ -126,6 +188,21 @@ function App() {
             throw error;
           }
         }
+
+        // Wait for network to switch
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        // Verify network switch
+        const currentProvider = new BrowserProvider(walletProvider);
+        const currentNetwork = await currentProvider.getNetwork();
+
+        if (Number(currentNetwork.chainId) !== network.chainId) {
+          throw new Error('Network switch failed');
+        }
+      }
+
+      if (networkChanged) {
+        throw new Error('Network changed during transaction');
       }
 
       updateStatus(network.id, { type: 'info', message: 'Checking if you can say hello...' });
@@ -133,6 +210,11 @@ function App() {
       const contract = new Contract(network.contractAddress, CONTRACT_ABI, signer);
       
       const canSay = await contract.canSayHello(address);
+
+      if (networkChanged) {
+        throw new Error('Network changed during transaction');
+      }
+
       if (!canSay) {
         const timeUntil = await contract.timeUntilNextHello(address);
         const hours = Math.floor(Number(timeUntil) / 3600);
@@ -146,12 +228,25 @@ function App() {
 
       updateStatus(network.id, { type: 'info', message: 'Sending transaction...' });
 
+      if (networkChanged) {
+        throw new Error('Network changed during transaction');
+      }
+
       const tx = await contract.sayHello();
 
       updateStatus(network.id, { type: 'info', message: 'Confirming transaction...' });
+
+      if (networkChanged) {
+        throw new Error('Network changed during transaction');
+      }
+
       await tx.wait();
 
-      // Delay for state's renew
+      if (networkChanged) {
+        throw new Error('Network changed during transaction');
+      }
+
+      // Delay for RPC node to update state
       await new Promise(resolve => setTimeout(resolve, 1500));
 
       const stats = await contract.getUserStats(address);
@@ -168,16 +263,29 @@ function App() {
       console.error('Hello execution error:', error);
       let errorMessage = 'Transaction failed';
       
-      if (error.message.includes('Already said hello today')) {
+      if (networkChanged) {
+        errorMessage = 'Network changed during transaction';
+      } else if (error.message.includes('Already said hello today')) {
         errorMessage = 'Already said hello today!';
       } else if (error.message.includes('user rejected')) {
         errorMessage = 'Transaction rejected';
+      } else if (error.message.includes('network changed')) {
+        errorMessage = 'Network changed during transaction';
+      } else if (error.message.includes('Network switch failed')) {
+        errorMessage = 'Network switch failed. Please switch manually';
       }
       
       updateStatus(network.id, {
         type: 'error',
         message: `❌ ${errorMessage}`
       });
+      
+      throw error; // Re-throw to be caught by queue processor
+    } finally {
+      // Clean up event listener
+      if (window.ethereum) {
+        window.ethereum.removeListener('chainChanged', handleChainChanged);
+      }
     }
   };
 
