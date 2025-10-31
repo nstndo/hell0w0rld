@@ -105,7 +105,7 @@ export const NETWORKS = [
     rpcUrl: 'https://testnet.rpc.neuraprotocol.io/',
     icon: 'ANKR',
     logo: '/images/networks/ANKR.svg',
-    explorerUrl: 'https://testnet-blockscout.infra.neuraprotocol.io/',
+    explorerUrl: 'https://testnet-blockscout.infra.neuraprotocol.io',
     currency: 'ANKR',
     isTestnet: true
   },
@@ -165,7 +165,7 @@ export const NETWORKS = [
     rpcUrl: 'https://sandchain-rpc.caldera.xyz/http',
     icon: 'SAND',
     logo: '/images/networks/SAND.svg',
-    explorerUrl: 'https://sandchain-explorer.caldera.xyz/',
+    explorerUrl: 'https://sandchain-explorer.caldera.xyz',
     currency: 'SAND',
     isTestnet: true
   },
@@ -177,7 +177,7 @@ export const NETWORKS = [
     rpcUrl: 'https://testnet-rpc.iopn.tech',
     icon: 'OPN',
     logo: '/images/networks/OPN.svg',
-    explorerUrl: 'https://testnet.iopn.tech/',
+    explorerUrl: 'https://testnet.iopn.tech',
     currency: 'OPN',
     isTestnet: true
   },
