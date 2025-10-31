@@ -13,33 +13,24 @@ import Docs from './components/Docs';
 // --- Spinner ---
 function Spinner() {
   return (
-    <div className="spinner-overlay">
-      <div className="spinner" />
-      <span>Загрузка...</span>
-      <style>{`
-        .spinner-overlay {
-          position: fixed; z-index: 30;
-          top:0; left:0; right:0; bottom:0;
-          display: flex; flex-direction: column;
-          align-items: center; justify-content: center;
-          background: rgba(255,255,255,0.5);
-        }
-        .spinner {
-          width:40px; height:40px;
-          border:5px solid #007bff;
-          border-radius:50%;
-          border-top:5px solid transparent;
-          animation: spin 1s linear infinite;
-          margin-bottom: 16px;
-        }
-        @keyframes spin {
-          0% {transform:rotate(0deg);}
-          100% {transform:rotate(360deg);}
-        }
-      `}</style>
-    </div>
+    <div className="button-spinner" style={{
+      display: 'inline-block',
+      width: '16px',
+      height: '16px',
+      border: '2px solid #007bff',
+      borderTop: '2px solid transparent',
+      borderRadius: '50%',
+      animation: 'spin 1s linear infinite',
+      marginLeft: '8px',
+      verticalAlign: 'middle',
+    }} />
   );
 }
+
+// @keyframes spin {
+//   0% { transform: rotate(0deg); }
+//   100% { transform: rotate(360deg); }
+// }
 
 const projectId = '90f5a0d4425e8c5b3c7f51c08ceba705';
 
@@ -71,7 +62,7 @@ createWeb3Modal({
   }
 });
 
-function HomePage({ executeHello, statuses, isConnected, isLoading }) {
+function HomePage({ executeHello, statuses, isConnected, loadingStates }) {
   const [activeTab, setActiveTab] = useState('mainnet');
 
   const filteredNetworks = NETWORKS.filter(network =>
@@ -95,11 +86,10 @@ function HomePage({ executeHello, statuses, isConnected, isLoading }) {
             isConnected={isConnected}
             onExecuteHello={executeHello}
             status={statuses[network.id]}
-            disabled={isLoading}
+            isLoading={loadingStates[network.id] || false}
           />
         ))}
       </div>
-      {isLoading && <Spinner />}
     </div>
   );
 }
@@ -107,7 +97,7 @@ function HomePage({ executeHello, statuses, isConnected, isLoading }) {
 function App() {
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
   const [statuses, setStatuses] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
+  const [loadingStates, setLoadingStates] = useState({});
   const { address, chainId, isConnected } = useWeb3ModalAccount();
   const { walletProvider } = useWeb3ModalProvider();
 
@@ -117,7 +107,7 @@ function App() {
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
   };
 
   const updateStatus = (networkId, status) => {
@@ -126,7 +116,9 @@ function App() {
 
   const executeHello = async (network) => {
     if (!walletProvider || !address) return;
-    setIsLoading(true);
+
+    setLoadingStates(prev => ({ ...prev, [network.id]: true }));
+
     try {
       updateStatus(network.id, { type: 'info', message: 'Switching network...' });
 
@@ -149,11 +141,11 @@ function App() {
                 nativeCurrency: {
                   name: network.currency,
                   symbol: network.currency,
-                  decimals: 18
+                  decimals: 18,
                 },
                 rpcUrls: [network.rpcUrl],
-                blockExplorerUrls: [network.explorerUrl]
-              }]
+                blockExplorerUrls: [network.explorerUrl],
+              }],
             });
           } else {
             throw error;
@@ -164,16 +156,16 @@ function App() {
       updateStatus(network.id, { type: 'info', message: 'Checking if you can say hello...' });
       const contract = new Contract(network.contractAddress, CONTRACT_ABI, signer);
       const canSay = await contract.canSayHello(address);
-      
+
       if (!canSay) {
         const timeUntil = await contract.timeUntilNextHello(address);
         const hours = Math.floor(Number(timeUntil) / 3600);
         const minutes = Math.floor((Number(timeUntil) % 3600) / 60);
-        updateStatus(network.id, { 
-          type: 'error', 
-          message: `❌ Already said hello today! Try again in ${hours}h ${minutes}m` 
+        updateStatus(network.id, {
+          type: 'error',
+          message: `❌ Already said hello today! Try again in ${hours}h ${minutes}m`,
         });
-        setIsLoading(false);
+        setLoadingStates(prev => ({ ...prev, [network.id]: false }));
         return;
       }
 
@@ -183,12 +175,12 @@ function App() {
       updateStatus(network.id, { type: 'info', message: 'Confirming transaction...' });
       await tx.wait();
 
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      await new Promise((resolve) => setTimeout(resolve, 1500));
       const stats = await contract.getUserStats(address);
       const streak = Number(stats._currentStreak);
       updateStatus(network.id, {
         type: 'success',
-        message: `✅ Hello World! Streak: ${streak} day${streak !== 1 ? 's' : ''}!`
+        message: `✅ Hello World! Streak: ${streak} day${streak !== 1 ? 's' : ''}!`,
       });
       setTimeout(() => updateStatus(network.id, null), 8000);
     } catch (error) {
@@ -201,10 +193,10 @@ function App() {
       }
       updateStatus(network.id, {
         type: 'error',
-        message: `❌ ${errorMessage}`
+        message: `❌ ${errorMessage}`,
       });
     } finally {
-      setIsLoading(false);
+      setLoadingStates(prev => ({ ...prev, [network.id]: false }));
     }
   };
 
@@ -213,16 +205,16 @@ function App() {
       <Header theme={theme} onThemeToggle={toggleTheme} />
 
       <Routes>
-        <Route 
-          path="/" 
+        <Route
+          path="/"
           element={
-            <HomePage 
-              executeHello={executeHello} 
-              statuses={statuses} 
-              isConnected={isConnected} 
-              isLoading={isLoading}
+            <HomePage
+              executeHello={executeHello}
+              statuses={statuses}
+              isConnected={isConnected}
+              loadingStates={loadingStates}
             />
-          } 
+          }
         />
         <Route path="/docs" element={<Docs />} />
       </Routes>
