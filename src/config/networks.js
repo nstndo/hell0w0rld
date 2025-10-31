@@ -45,7 +45,7 @@ export const NETWORKS = [
     rpcUrl: 'https://testnet-rpc.monad.xyz',
     icon: 'MON',
     logo: '/images/networks/MON.svg',
-    explorerUrl: 'https://testnet.monadscan.com/',
+    explorerUrl: 'https://testnet.monadscan.com',
     currency: 'MON',
     isTestnet: true
   },
@@ -57,7 +57,7 @@ export const NETWORKS = [
     rpcUrl: 'https://testnet.dplabs-internal.com',
     icon: 'PHRS',
     logo: '/images/networks/PHRS.svg',
-    explorerUrl: 'https://pharos-testnet.socialscan.io/',
+    explorerUrl: 'https://pharos-testnet.socialscan.io',
     currency: 'PHRS',
     isTestnet: true
   },
@@ -69,7 +69,7 @@ export const NETWORKS = [
     rpcUrl: 'https://atlantic.dplabs-internal.com',
     icon: 'PHRS',
     logo: '/images/networks/PHRS.svg',
-    explorerUrl: 'https://atlantic.pharosscan.xyz/',
+    explorerUrl: 'https://atlantic.pharosscan.xyz',
     currency: 'PHRS',
     isTestnet: true
   },
@@ -81,7 +81,7 @@ export const NETWORKS = [
     rpcUrl: 'https://testnet.riselabs.xyz',
     icon: 'RISE',
     logo: '/images/networks/RISE.svg',
-    explorerUrl: 'https://explorer.testnet.riselabs.xyz/',
+    explorerUrl: 'https://explorer.testnet.riselabs.xyz',
     currency: 'ETH',
     isTestnet: true
   },
@@ -117,7 +117,7 @@ export const NETWORKS = [
     rpcUrl: 'https://rpc-testnet.haust.app',
     icon: 'HAUST',
     logo: '/images/networks/HAUST.svg',
-    explorerUrl: 'https://explorer-testnet.haust.app/',
+    explorerUrl: 'https://explorer-testnet.haust.app',
     currency: 'HAUST',
     isTestnet: true
   },
@@ -129,7 +129,7 @@ export const NETWORKS = [
     rpcUrl: 'https://api.zan.top/public/jovay-testnet',
     icon: 'JOVAY',
     logo: '/images/networks/JOVAY.svg',
-    explorerUrl: 'https://sepolia-explorer.jovay.io/',
+    explorerUrl: 'https://sepolia-explorer.jovay.io',
     currency: 'ETH',
     isTestnet: true
   },
@@ -141,7 +141,7 @@ export const NETWORKS = [
     rpcUrl: 'https://sepolia-rpc.giwa.io',
     icon: 'GIWA',
     logo: '/images/networks/GIWA.svg',
-    explorerUrl: 'https://sepolia-explorer.giwa.io/',
+    explorerUrl: 'https://sepolia-explorer.giwa.io',
     currency: 'ETH',
     isTestnet: true
   },
@@ -153,7 +153,7 @@ export const NETWORKS = [
     rpcUrl: 'https://rpc-testnet.gokite.ai',
     icon: 'GOKITE',
     logo: '/images/networks/GOKITE.svg',
-    explorerUrl: 'https://testnet.kitescan.ai/',
+    explorerUrl: 'https://testnet.kitescan.ai',
     currency: 'GOKITE',
     isTestnet: true
   },
@@ -202,7 +202,7 @@ export const NETWORKS = [
     rpcUrl: 'https://optimism-rpc.publicnode.com',
     icon: 'OP',
     logo: '/images/networks/OP.svg',
-    explorerUrl: 'https://explorer.optimism.io/',
+    explorerUrl: 'https://explorer.optimism.io',
     currency: 'ETH',
     isTestnet: false
   },
@@ -214,7 +214,7 @@ export const NETWORKS = [
     rpcUrl: 'https://unichain-rpc.publicnode.com',
     icon: 'UNI',
     logo: '/images/networks/UNI.svg',
-    explorerUrl: 'https://uniscan.xyz/',
+    explorerUrl: 'https://uniscan.xyz',
     currency: 'ETH',
     isTestnet: false
   },
@@ -226,7 +226,7 @@ export const NETWORKS = [
     rpcUrl: 'https://celo.drpc.org',
     icon: 'CELO',
     logo: '/images/networks/CELO.svg',
-    explorerUrl: 'https://celoscan.io/',
+    explorerUrl: 'https://celoscan.io',
     currency: 'CELO',
     isTestnet: false
   },
@@ -238,7 +238,7 @@ export const NETWORKS = [
     rpcUrl: 'https://rpc-qnd.inkonchain.com',
     icon: 'INK',
     logo: '/images/networks/INK.svg',
-    explorerUrl: 'https://explorer.inkonchain.com/',
+    explorerUrl: 'https://explorer.inkonchain.com',
     currency: 'ETH',
     isTestnet: false
   },
@@ -250,7 +250,7 @@ export const NETWORKS = [
     rpcUrl: 'https://worldchain.drpc.org',
     icon: 'WORLD',
     logo: '/images/networks/WORLD.svg',
-    explorerUrl: 'https://worldscan.org/',
+    explorerUrl: 'https://worldscan.org',
     currency: 'ETH',
     isTestnet: false
   },
@@ -262,7 +262,7 @@ export const NETWORKS = [
     rpcUrl: 'https://lisk.drpc.org',
     icon: 'LISK',
     logo: '/images/networks/LISK.svg',
-    explorerUrl: 'https://blockscout.lisk.com/',
+    explorerUrl: 'https://blockscout.lisk.com',
     currency: 'ETH',
     isTestnet: false
   },
@@ -274,7 +274,7 @@ export const NETWORKS = [
     rpcUrl: 'https://rpc.linea.build',
     icon: 'LINEA',
     logo: '/images/networks/LINEA.svg',
-    explorerUrl: 'https://lineascan.build/',
+    explorerUrl: 'https://lineascan.build',
     currency: 'ETH',
     isTestnet: false
   },
@@ -286,7 +286,7 @@ export const NETWORKS = [
     rpcUrl: 'https://arbitrum.rpc.subquery.network/public',
     icon: 'ARB',
     logo: '/images/networks/ARB.svg',
-    explorerUrl: 'https://arbiscan.io/',
+    explorerUrl: 'https://arbiscan.io',
     currency: 'ARB',
     isTestnet: false
   },
@@ -298,7 +298,7 @@ export const NETWORKS = [
     rpcUrl: 'https://rpc.plume.org',
     icon: 'PLUME',
     logo: '/images/networks/PLUME.svg',
-    explorerUrl: 'https://explorer.plume.org/',
+    explorerUrl: 'https://explorer.plume.org',
     currency: 'PLUME',
     isTestnet: false
   },
@@ -310,7 +310,7 @@ export const NETWORKS = [
     rpcUrl: 'https://hyperliquid.drpc.org',
     icon: 'HYPE',
     logo: '/images/networks/HYPE.svg',
-    explorerUrl: 'https://www.hyperscan.com/',
+    explorerUrl: 'https://www.hyperscan.com',
     currency: 'HYPE',
     isTestnet: false
   },
@@ -322,7 +322,7 @@ export const NETWORKS = [
     rpcUrl: 'https://rpc.soneium.org',
     icon: 'SONEIUM',
     logo: '/images/networks/SONEIUM.svg',
-    explorerUrl: 'https://soneium.blockscout.com/',
+    explorerUrl: 'https://soneium.blockscout.com',
     currency: 'ETH',
     isTestnet: false
   },
@@ -346,7 +346,7 @@ export const NETWORKS = [
     rpcUrl: 'https://rpc.lens.xyz',
     icon: 'LENS',
     logo: '/images/networks/LENS.svg',
-    explorerUrl: 'https://explorer.lens.xyz/',
+    explorerUrl: 'https://explorer.lens.xyz',
     currency: 'GHO',
     isTestnet: false
   },
@@ -358,7 +358,7 @@ export const NETWORKS = [
     rpcUrl: 'https://zora.drpc.org',
     icon: 'ZORA',
     logo: '/images/networks/ZORA.svg',
-    explorerUrl: 'https://zorascan.xyz/',
+    explorerUrl: 'https://zorascan.xyz',
     currency: 'ETH',
     isTestnet: false
   },
@@ -370,7 +370,7 @@ export const NETWORKS = [
     rpcUrl: 'https://rpc.plasma.to',
     icon: 'XPL',
     logo: '/images/networks/XPL.svg',
-    explorerUrl: 'https://plasmascan.to/',
+    explorerUrl: 'https://plasmascan.to',
     currency: 'XPL',
     isTestnet: false
   },
@@ -382,7 +382,7 @@ export const NETWORKS = [
     rpcUrl: 'https://evmrpc.0g.ai',
     icon: '0G',
     logo: '/images/networks/0G.svg',
-    explorerUrl: 'https://chainscan.0g.ai/',
+    explorerUrl: 'https://chainscan.0g.ai',
     currency: '0G',
     isTestnet: false
   },
@@ -394,7 +394,7 @@ export const NETWORKS = [
     rpcUrl: 'https://rpc.apechain.com',
     icon: 'APE',
     logo: '/images/networks/APE.svg',
-    explorerUrl: 'https://apescan.io/',
+    explorerUrl: 'https://apescan.io',
     currency: 'APE',
     isTestnet: false
   },
@@ -406,7 +406,7 @@ export const NETWORKS = [
     rpcUrl: 'https://api.infra.mainnet.somnia.network',
     icon: 'SOMI',
     logo: '/images/networks/SOMI.svg',
-    explorerUrl: 'https://explorer.somnia.network/',
+    explorerUrl: 'https://explorer.somnia.network',
     currency: 'SOMI',
     isTestnet: false
   },
@@ -418,7 +418,7 @@ export const NETWORKS = [
     rpcUrl: 'https://haust-network-rpc.eu-north-2.gateway.fm',
     icon: 'HAUST',
     logo: '/images/networks/HAUST.svg',
-    explorerUrl: 'https://haustscan.com/',
+    explorerUrl: 'https://haustscan.com',
     currency: 'HAUST',
     isTestnet: false
   }
