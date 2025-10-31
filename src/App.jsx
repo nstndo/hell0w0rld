@@ -10,7 +10,37 @@ import NetworkTabs from './components/NetworkTabs';
 import Footer from './components/Footer';
 import Docs from './components/Docs';
 
-// Web3Modal configuration
+// --- Spinner ---
+function Spinner() {
+  return (
+    <div className="spinner-overlay">
+      <div className="spinner" />
+      <span>Загрузка...</span>
+      <style>{`
+        .spinner-overlay {
+          position: fixed; z-index: 30;
+          top:0; left:0; right:0; bottom:0;
+          display: flex; flex-direction: column;
+          align-items: center; justify-content: center;
+          background: rgba(255,255,255,0.5);
+        }
+        .spinner {
+          width:40px; height:40px;
+          border:5px solid #007bff;
+          border-radius:50%;
+          border-top:5px solid transparent;
+          animation: spin 1s linear infinite;
+          margin-bottom: 16px;
+        }
+        @keyframes spin {
+          0% {transform:rotate(0deg);}
+          100% {transform:rotate(360deg);}
+        }
+      `}</style>
+    </div>
+  );
+}
+
 const projectId = '90f5a0d4425e8c5b3c7f51c08ceba705';
 
 const chains = NETWORKS.map(network => ({
@@ -41,10 +71,10 @@ createWeb3Modal({
   }
 });
 
-function HomePage({ executeHello, statuses, isConnected }) {
+function HomePage({ executeHello, statuses, isConnected, isLoading }) {
   const [activeTab, setActiveTab] = useState('mainnet');
-  
-  const filteredNetworks = NETWORKS.filter(network => 
+
+  const filteredNetworks = NETWORKS.filter(network =>
     activeTab === 'testnet' ? network.isTestnet : !network.isTestnet
   );
 
@@ -65,9 +95,11 @@ function HomePage({ executeHello, statuses, isConnected }) {
             isConnected={isConnected}
             onExecuteHello={executeHello}
             status={statuses[network.id]}
+            disabled={isLoading}
           />
         ))}
       </div>
+      {isLoading && <Spinner />}
     </div>
   );
 }
@@ -75,6 +107,7 @@ function HomePage({ executeHello, statuses, isConnected }) {
 function App() {
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
   const [statuses, setStatuses] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const { address, chainId, isConnected } = useWeb3ModalAccount();
   const { walletProvider } = useWeb3ModalProvider();
 
@@ -93,7 +126,7 @@ function App() {
 
   const executeHello = async (network) => {
     if (!walletProvider || !address) return;
-
+    setIsLoading(true);
     try {
       updateStatus(network.id, { type: 'info', message: 'Switching network...' });
 
@@ -129,10 +162,9 @@ function App() {
       }
 
       updateStatus(network.id, { type: 'info', message: 'Checking if you can say hello...' });
-
       const contract = new Contract(network.contractAddress, CONTRACT_ABI, signer);
-      
       const canSay = await contract.canSayHello(address);
+      
       if (!canSay) {
         const timeUntil = await contract.timeUntilNextHello(address);
         const hours = Math.floor(Number(timeUntil) / 3600);
@@ -141,43 +173,38 @@ function App() {
           type: 'error', 
           message: `❌ Already said hello today! Try again in ${hours}h ${minutes}m` 
         });
+        setIsLoading(false);
         return;
       }
 
       updateStatus(network.id, { type: 'info', message: 'Sending transaction...' });
-
       const tx = await contract.sayHello();
 
       updateStatus(network.id, { type: 'info', message: 'Confirming transaction...' });
       await tx.wait();
 
-      // Delay for state's renew
       await new Promise(resolve => setTimeout(resolve, 1500));
-
       const stats = await contract.getUserStats(address);
       const streak = Number(stats._currentStreak);
-
-      updateStatus(network.id, { 
-        type: 'success', 
-        message: `✅ Hello World! Streak: ${streak} day${streak !== 1 ? 's' : ''}!` 
+      updateStatus(network.id, {
+        type: 'success',
+        message: `✅ Hello World! Streak: ${streak} day${streak !== 1 ? 's' : ''}!`
       });
-      
       setTimeout(() => updateStatus(network.id, null), 8000);
-
     } catch (error) {
       console.error('Hello execution error:', error);
       let errorMessage = 'Transaction failed';
-      
       if (error.message.includes('Already said hello today')) {
         errorMessage = 'Already said hello today!';
       } else if (error.message.includes('user rejected')) {
         errorMessage = 'Transaction rejected';
       }
-      
       updateStatus(network.id, {
         type: 'error',
         message: `❌ ${errorMessage}`
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -193,6 +220,7 @@ function App() {
               executeHello={executeHello} 
               statuses={statuses} 
               isConnected={isConnected} 
+              isLoading={isLoading}
             />
           } 
         />
