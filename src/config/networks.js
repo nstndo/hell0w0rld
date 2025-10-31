@@ -169,6 +169,18 @@ export const NETWORKS = [
     currency: 'SAND',
     isTestnet: true
   },
+  {
+    id: 'iopn-testnet',
+    name: 'IOPn Testnet',
+    chainId: 984,
+    contractAddress: '0xD71caE47F4B4C800E82d9613BCe0f1E40Ae4932e',
+    rpcUrl: 'https://testnet-rpc.iopn.tech',
+    icon: 'OPN',
+    logo: '/images/networks/OPN.svg',
+    explorerUrl: 'https://testnet.iopn.tech/',
+    currency: 'OPN',
+    isTestnet: true
+  },
   // Mainnets
   {
     id: 'base',

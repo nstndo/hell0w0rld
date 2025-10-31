@@ -807,6 +807,29 @@ const Docs = () => {
             </div>
           </div>
 
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge sepolia">
+                <img src="/images/networks/OPN.svg" alt="IOPn Testnet" className="badge-logo" />
+              </div>
+              <div>
+                <h3>IOPn Testnet</h3>
+                <p className="chain-id">Chain ID: 984</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://testnet.iopn.tech/address/0xD71caE47F4B4C800E82d9613BCe0f1E40Ae4932e" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                IOPN_TESTNET_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
+
         </div>
       </div>
 
