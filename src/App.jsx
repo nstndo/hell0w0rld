@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react';
 import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react';
@@ -10,30 +10,7 @@ import NetworkTabs from './components/NetworkTabs';
 import Footer from './components/Footer';
 import Docs from './components/Docs';
 
-// Spinner component
-function Spinner() {
-  return (
-    <div style={{
-      display: 'inline-block',
-      width: '16px',
-      height: '16px',
-      border: '2px solid #007bff',
-      borderTop: '2px solid transparent',
-      borderRadius: '50%',
-      animation: 'spin 1s linear infinite',
-      marginLeft: '8px',
-      verticalAlign: 'middle'
-    }} />
-  );
-}
-
-const styleSheet = document.styleSheets[0];
-styleSheet.insertRule(`
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}`, styleSheet.cssRules.length);
-
+// Web3Modal configuration
 const projectId = '90f5a0d4425e8c5b3c7f51c08ceba705';
 
 const chains = NETWORKS.map(network => ({
@@ -64,10 +41,10 @@ createWeb3Modal({
   }
 });
 
-function HomePage({ executeHello, statuses, isConnected, loadingStates }) {
+function HomePage({ executeHello, statuses, isConnected }) {
   const [activeTab, setActiveTab] = useState('mainnet');
-
-  const filteredNetworks = NETWORKS.filter(network =>
+  
+  const filteredNetworks = NETWORKS.filter(network => 
     activeTab === 'testnet' ? network.isTestnet : !network.isTestnet
   );
 
@@ -88,7 +65,6 @@ function HomePage({ executeHello, statuses, isConnected, loadingStates }) {
             isConnected={isConnected}
             onExecuteHello={executeHello}
             status={statuses[network.id]}
-            isLoading={loadingStates[network.id] || false}
           />
         ))}
       </div>
@@ -99,14 +75,8 @@ function HomePage({ executeHello, statuses, isConnected, loadingStates }) {
 function App() {
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
   const [statuses, setStatuses] = useState({});
-  const [loadingStates, setLoadingStates] = useState({});
   const { address, chainId, isConnected } = useWeb3ModalAccount();
   const { walletProvider } = useWeb3ModalProvider();
-
-  // GLOBAL queue - only one transaction at a time for entire app
-  const globalQueueRef = useRef(Promise.resolve());
-  // Track current network being processed
-  const currentNetworkRef = useRef(null);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -114,153 +84,101 @@ function App() {
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+    setTheme(prev => prev === 'light' ? 'dark' : 'light');
   };
 
   const updateStatus = (networkId, status) => {
     setStatuses(prev => ({ ...prev, [networkId]: status }));
   };
 
-  // Enqueue task globally
-  const enqueueGlobal = (networkId, task) => {
-    globalQueueRef.current = globalQueueRef.current
-      .then(() => task())
-      .catch(err => {
-        console.error(`Error processing network ${networkId}:`, err);
-      });
-    return globalQueueRef.current;
-  };
-
-  const executeHello = (network) => {
+  const executeHello = async (network) => {
     if (!walletProvider || !address) return;
 
-    const task = async () => {
-      setLoadingStates(prev => ({ ...prev, [network.id]: true }));
-      currentNetworkRef.current = network.id;
+    try {
+      updateStatus(network.id, { type: 'info', message: 'Switching network...' });
 
-      // Declare all resource pointers
-      let ethersProvider = null;
-      let signer = null;
-      let contract = null;
+      const ethersProvider = new BrowserProvider(walletProvider);
+      const signer = await ethersProvider.getSigner();
 
-      try {
-        updateStatus(network.id, { type: 'info', message: 'Switching network...' });
-        
-        // Create provider only once, inside try block
-        ethersProvider = new BrowserProvider(walletProvider);
-        signer = await ethersProvider.getSigner();
-
-        if (chainId !== network.chainId) {
-          try {
-            await walletProvider.request({
-              method: 'wallet_switchEthereumChain',
-              params: [{ chainId: `0x${network.chainId.toString(16)}` }],
-            });
-          } catch (error) {
-            if (error.code === 4902) {
-              await walletProvider.request({
-                method: 'wallet_addEthereumChain',
-                params: [{
-                  chainId: `0x${network.chainId.toString(16)}`,
-                  chainName: network.name,
-                  nativeCurrency: {
-                    name: network.currency,
-                    symbol: network.currency,
-                    decimals: 18
-                  },
-                  rpcUrls: [network.rpcUrl],
-                  blockExplorerUrls: [network.explorerUrl]
-                }]
-              });
-            } else {
-              throw error;
-            }
-          }
-        }
-
-        updateStatus(network.id, { type: 'info', message: 'Checking if you can say hello...' });
-        
-        contract = new Contract(network.contractAddress, CONTRACT_ABI, signer);
-        contract.removeAllListeners();
-
-        const canSay = await contract.canSayHello(address);
-
-        if (!canSay) {
-          const timeUntil = await contract.timeUntilNextHello(address);
-          const hours = Math.floor(Number(timeUntil) / 3600);
-          const minutes = Math.floor((Number(timeUntil) % 3600) / 60);
-          updateStatus(network.id, {
-            type: 'error',
-            message: `❌ Already said hello today! Try again in ${hours}h ${minutes}m`,
-          });
-          return;
-        }
-
-        updateStatus(network.id, { type: 'info', message: 'Sending transaction...' });
-        const tx = await contract.sayHello();
-
-        updateStatus(network.id, { type: 'info', message: 'Confirming transaction...' });
-        await tx.wait();
-
-        await new Promise(resolve => setTimeout(resolve, 1500));
-
-        // Fresh contract instance for final read
-        if (contract) {
-          contract.removeAllListeners();
-        }
-        contract = new Contract(network.contractAddress, CONTRACT_ABI, signer);
-        contract.removeAllListeners();
-
-        const stats = await contract.getUserStats(address);
-        const streak = Number(stats._currentStreak);
-        updateStatus(network.id, {
-          type: 'success',
-          message: `✅ Hello World! Streak: ${streak} day${streak !== 1 ? 's' : ''}!`,
-        });
-        setTimeout(() => updateStatus(network.id, null), 8000);
-      } catch (error) {
-        console.error('Hello execution error:', error);
-        let errorMessage = 'Transaction failed';
-        if (error.message.includes('Already said hello today')) {
-          errorMessage = 'Already said hello today!';
-        } else if (error.message.includes('user rejected')) {
-          errorMessage = 'Transaction rejected';
-        }
-        updateStatus(network.id, {
-          type: 'error',
-          message: `❌ ${errorMessage}`,
-        });
-      } finally {
-        // CRITICAL: Properly destroy provider and clean up resources
+      if (chainId !== network.chainId) {
         try {
-          if (contract) {
-            contract.removeAllListeners();
-            contract = null;
+          await walletProvider.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: `0x${network.chainId.toString(16)}` }],
+          });
+        } catch (error) {
+          if (error.code === 4902) {
+            await walletProvider.request({
+              method: 'wallet_addEthereumChain',
+              params: [{
+                chainId: `0x${network.chainId.toString(16)}`,
+                chainName: network.name,
+                nativeCurrency: {
+                  name: network.currency,
+                  symbol: network.currency,
+                  decimals: 18
+                },
+                rpcUrls: [network.rpcUrl],
+                blockExplorerUrls: [network.explorerUrl]
+              }]
+            });
+          } else {
+            throw error;
           }
-          if (signer) {
-            signer = null;
-          }
-          if (ethersProvider) {
-            // Use destroy() method if available (ethers v6)
-            if (typeof ethersProvider.destroy === 'function') {
-              ethersProvider.destroy();
-            }
-            ethersProvider = null;
-          }
-        } catch (cleanupError) {
-          console.error('Cleanup error:', cleanupError);
         }
-
-        setLoadingStates(prev => ({ ...prev, [network.id]: false }));
-        currentNetworkRef.current = null;
-
-        // Small delay to allow garbage collection
-        await new Promise(resolve => setTimeout(resolve, 100));
       }
-    };
 
-    // Add to global queue
-    enqueueGlobal(network.id, task).catch(console.error);
+      updateStatus(network.id, { type: 'info', message: 'Checking if you can say hello...' });
+
+      const contract = new Contract(network.contractAddress, CONTRACT_ABI, signer);
+      
+      const canSay = await contract.canSayHello(address);
+      if (!canSay) {
+        const timeUntil = await contract.timeUntilNextHello(address);
+        const hours = Math.floor(Number(timeUntil) / 3600);
+        const minutes = Math.floor((Number(timeUntil) % 3600) / 60);
+        updateStatus(network.id, { 
+          type: 'error', 
+          message: `❌ Already said hello today! Try again in ${hours}h ${minutes}m` 
+        });
+        return;
+      }
+
+      updateStatus(network.id, { type: 'info', message: 'Sending transaction...' });
+
+      const tx = await contract.sayHello();
+
+      updateStatus(network.id, { type: 'info', message: 'Confirming transaction...' });
+      await tx.wait();
+
+      // Delay for state's renew
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      const stats = await contract.getUserStats(address);
+      const streak = Number(stats._currentStreak);
+
+      updateStatus(network.id, { 
+        type: 'success', 
+        message: `✅ Hello World! Streak: ${streak} day${streak !== 1 ? 's' : ''}!` 
+      });
+      
+      setTimeout(() => updateStatus(network.id, null), 8000);
+
+    } catch (error) {
+      console.error('Hello execution error:', error);
+      let errorMessage = 'Transaction failed';
+      
+      if (error.message.includes('Already said hello today')) {
+        errorMessage = 'Already said hello today!';
+      } else if (error.message.includes('user rejected')) {
+        errorMessage = 'Transaction rejected';
+      }
+      
+      updateStatus(network.id, {
+        type: 'error',
+        message: `❌ ${errorMessage}`
+      });
+    }
   };
 
   return (
@@ -268,16 +186,15 @@ function App() {
       <Header theme={theme} onThemeToggle={toggleTheme} />
 
       <Routes>
-        <Route
-          path="/"
+        <Route 
+          path="/" 
           element={
-            <HomePage
-              executeHello={executeHello}
-              statuses={statuses}
-              isConnected={isConnected}
-              loadingStates={loadingStates}
+            <HomePage 
+              executeHello={executeHello} 
+              statuses={statuses} 
+              isConnected={isConnected} 
             />
-          }
+          } 
         />
         <Route path="/docs" element={<Docs />} />
       </Routes>
