@@ -174,24 +174,32 @@ function App() {
             method: 'wallet_switchEthereumChain',
             params: [{ chainId: `0x${network.chainId.toString(16)}` }],
           });
-        } catch (error) {
-          if (error.code === 4902) {
-            await walletProvider.request({
-              method: 'wallet_addEthereumChain',
-              params: [{
-                chainId: `0x${network.chainId.toString(16)}`,
-                chainName: network.name,
-                nativeCurrency: {
-                  name: network.currency,
-                  symbol: network.currency,
-                  decimals: 18
-                },
-                rpcUrls: [network.rpcUrl],
-                blockExplorerUrls: [network.explorerUrl]
-              }]
-            });
+        } catch (switchError) {
+          // If network doesn't exist (4902) OR unrecognized (-32603), try to add it
+          if (switchError.code === 4902 || switchError.code === -32603) {
+            updateStatus(network.id, { type: 'info', message: 'Adding network to wallet...' });
+            
+            try {
+              await walletProvider.request({
+                method: 'wallet_addEthereumChain',
+                params: [{
+                  chainId: `0x${network.chainId.toString(16)}`,
+                  chainName: network.name,
+                  nativeCurrency: {
+                    name: network.currency,
+                    symbol: network.currency,
+                    decimals: 18
+                  },
+                  rpcUrls: [network.rpcUrl],
+                  blockExplorerUrls: [network.explorerUrl]
+                }]
+              });
+            } catch (addError) {
+              console.error('Failed to add network:', addError);
+              throw new Error('Failed to add network to wallet');
+            }
           } else {
-            throw error;
+            throw switchError;
           }
         }
 
@@ -279,35 +287,37 @@ function App() {
       setTimeout(() => updateStatus(network.id, null), 8000);
 
     } catch (error) {
-  console.error('Hello execution error:', error);
-  console.error('Error code:', error.code);
-  console.error('Error message:', error.message);
-  
-  let errorMessage = 'Transaction failed';
-  
-  if (networkChanged) {
-    errorMessage = 'Network changed during transaction';
-  } else if (error.code === 4902) {
-    errorMessage = 'Failed to add network. Please add manually';
-  } else if (error.code === 4001) {
-    errorMessage = 'User rejected the request';
-  } else if (error.message.includes('Already said hello today')) {
-    errorMessage = 'Already said hello today!';
-  } else if (error.message.includes('user rejected')) {
-    errorMessage = 'Transaction rejected';
-  } else if (error.message.includes('network changed')) {
-    errorMessage = 'Network changed during transaction';
-  } else if (error.message.includes('Network switch failed')) {
-    errorMessage = 'Network switch failed. Please try again';
-  }
-  
-  updateStatus(network.id, {
-    type: 'error',
-    message: `❌ ${errorMessage}`
-  });
-  
-  throw error;
-} finally {
+      console.error('Hello execution error:', error);
+      console.error('Error code:', error.code);
+      console.error('Error message:', error.message);
+      
+      let errorMessage = 'Transaction failed';
+      
+      if (networkChanged) {
+        errorMessage = 'Network changed during transaction';
+      } else if (error.code === 4902 || error.code === -32603) {
+        errorMessage = 'Failed to add network. Please try manually';
+      } else if (error.code === 4001) {
+        errorMessage = 'User rejected the request';
+      } else if (error.message.includes('Failed to add network')) {
+        errorMessage = 'Failed to add network to wallet';
+      } else if (error.message.includes('Already said hello today')) {
+        errorMessage = 'Already said hello today!';
+      } else if (error.message.includes('user rejected')) {
+        errorMessage = 'Transaction rejected';
+      } else if (error.message.includes('network changed')) {
+        errorMessage = 'Network changed during transaction';
+      } else if (error.message.includes('Network switch failed')) {
+        errorMessage = 'Network switch failed. Please try again';
+      }
+      
+      updateStatus(network.id, {
+        type: 'error',
+        message: `❌ ${errorMessage}`
+      });
+      
+      throw error;
+    } finally {
       // Clean up event listener
       if (window.ethereum) {
         window.ethereum.removeListener('chainChanged', handleChainChanged);
