@@ -113,7 +113,7 @@ function App() {
         reject(error);
       }
       
-      // Small delay between transactions to prevent MetaMask overload
+      // Small delay between transactions
       await new Promise(resolve => setTimeout(resolve, 300));
     }
 
@@ -125,7 +125,7 @@ function App() {
     if (activeTransactions.current.has(network.id)) {
       updateStatus(network.id, { 
         type: 'error', 
-        message: '⏳ Transaction already in progress for this network' 
+        message: '⏳ Transaction already in progress' 
       });
       return;
     }
@@ -147,22 +147,28 @@ function App() {
     if (!walletProvider || !address) return;
 
     let networkChanged = false;
+    let isOurNetworkSwitch = false;
+    
     const handleChainChanged = () => {
-      networkChanged = true;
+      // Only set networkChanged if it's not our intentional switch
+      if (!isOurNetworkSwitch) {
+        networkChanged = true;
+      }
     };
 
     try {
-      // Listen for network changes
-      if (window.ethereum) {
-        window.ethereum.on('chainChanged', handleChainChanged);
-      }
-
-      updateStatus(network.id, { type: 'info', message: 'Switching network...' });
+      updateStatus(network.id, { type: 'info', message: 'Preparing...' });
 
       const ethersProvider = new BrowserProvider(walletProvider);
       const signer = await ethersProvider.getSigner();
 
+      // Check if we need to switch network
       if (chainId !== network.chainId) {
+        updateStatus(network.id, { type: 'info', message: 'Switching network...' });
+        
+        // Mark that we're intentionally switching
+        isOurNetworkSwitch = true;
+        
         try {
           await walletProvider.request({
             method: 'wallet_switchEthereumChain',
@@ -190,7 +196,15 @@ function App() {
         }
 
         // Wait for network to switch
-        await new Promise(resolve => setTimeout(resolve, 500));
+        await new Promise(resolve => setTimeout(resolve, 800));
+        
+        // Now we can monitor for unexpected changes
+        isOurNetworkSwitch = false;
+        
+        // Add listener AFTER our switch is complete
+        if (window.ethereum) {
+          window.ethereum.on('chainChanged', handleChainChanged);
+        }
 
         // Verify network switch
         const currentProvider = new BrowserProvider(walletProvider);
@@ -198,6 +212,11 @@ function App() {
 
         if (Number(currentNetwork.chainId) !== network.chainId) {
           throw new Error('Network switch failed');
+        }
+      } else {
+        // Already on correct network, add listener immediately
+        if (window.ethereum) {
+          window.ethereum.on('chainChanged', handleChainChanged);
         }
       }
 
@@ -272,7 +291,7 @@ function App() {
       } else if (error.message.includes('network changed')) {
         errorMessage = 'Network changed during transaction';
       } else if (error.message.includes('Network switch failed')) {
-        errorMessage = 'Network switch failed. Please switch manually';
+        errorMessage = 'Network switch failed. Please try again';
       }
       
       updateStatus(network.id, {
@@ -280,7 +299,7 @@ function App() {
         message: `❌ ${errorMessage}`
       });
       
-      throw error; // Re-throw to be caught by queue processor
+      throw error;
     } finally {
       // Clean up event listener
       if (window.ethereum) {
