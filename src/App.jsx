@@ -10,7 +10,7 @@ import NetworkTabs from './components/NetworkTabs';
 import Footer from './components/Footer';
 import Docs from './components/Docs';
 
-// --- Spinner component for indicating loading on button ---
+// Spinner component for button loading indicator
 function Spinner() {
   return (
     <div style={{
@@ -26,8 +26,6 @@ function Spinner() {
     }} />
   );
 }
-
-// Add keyframes for spin animation
 const styleSheet = document.styleSheets[0];
 styleSheet.insertRule(`
 @keyframes spin {
@@ -35,7 +33,6 @@ styleSheet.insertRule(`
   100% { transform: rotate(360deg); }
 }`, styleSheet.cssRules.length);
 
-// Web3modal config
 const projectId = '90f5a0d4425e8c5b3c7f51c08ceba705';
 
 const chains = NETWORKS.map(network => ({
@@ -66,11 +63,9 @@ createWeb3Modal({
   }
 });
 
-// HomePage component
 function HomePage({ executeHello, statuses, isConnected, loadingStates }) {
   const [activeTab, setActiveTab] = useState('mainnet');
 
-  // Filter networks based on active tab
   const filteredNetworks = NETWORKS.filter(network =>
     activeTab === 'testnet' ? network.isTestnet : !network.isTestnet
   );
@@ -100,15 +95,16 @@ function HomePage({ executeHello, statuses, isConnected, loadingStates }) {
   );
 }
 
-// Main App component
 function App() {
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light');
   const [statuses, setStatuses] = useState({});
-  const [loadingStates, setLoadingStates] = useState({}); // per-button loading state
+  const [loadingStates, setLoadingStates] = useState({}); // per-network loading states
   const { address, chainId, isConnected } = useWeb3ModalAccount();
   const { walletProvider } = useWeb3ModalProvider();
 
-  // Theme toggle logic
+  // This ref holds promises queues for each network to serialize executeHello calls
+  const queuesRef = useRef({});
+
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('theme', theme);
@@ -118,107 +114,110 @@ function App() {
     setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
   };
 
-  // Helper to update status messages
   const updateStatus = (networkId, status) => {
     setStatuses(prev => ({ ...prev, [networkId]: status }));
   };
 
-  // executeHello with per-button loading and debounce
-  const lastClickRef = useRef({}); // for debounce per network
+  // Enqueue a task per network in a queue to avoid concurrent execution per network
+  const enqueue = (networkId, task) => {
+    if (!queuesRef.current[networkId]) {
+      queuesRef.current[networkId] = Promise.resolve();
+    }
+    queuesRef.current[networkId] = queuesRef.current[networkId].then(() => task());
+    return queuesRef.current[networkId];
+  };
 
-  const executeHello = async (network) => {
+  // Main executeHello function wraps its logic in enqueue to serialize per network
+  const executeHello = (network) => {
+    // If wallet/provider/address not ready, just skip
     if (!walletProvider || !address) return;
 
-    const now = Date.now();
-    if (lastClickRef.current[network.id] && now - lastClickRef.current[network.id] < 1500) {
-      // debounce: ignore if clicked again within 1.5 sec
-      return;
-    }
-    lastClickRef.current[network.id] = now;
+    // Task to execute blockchain logic
+    const task = async () => {
+      setLoadingStates(prev => ({ ...prev, [network.id]: true }));
 
-    // Set loading spin on specific button
-    setLoadingStates(prev => ({ ...prev, [network.id]: true }));
+      try {
+        updateStatus(network.id, { type: 'info', message: 'Switching network...' });
+        const ethersProvider = new BrowserProvider(walletProvider);
+        const signer = await ethersProvider.getSigner();
 
-    try {
-      updateStatus(network.id, { type: 'info', message: 'Switching network...' });
-      const ethersProvider = new BrowserProvider(walletProvider);
-      const signer = await ethersProvider.getSigner();
-
-      if (chainId !== network.chainId) {
-        try {
-          await walletProvider.request({
-            method: 'wallet_switchEthereumChain',
-            params: [{ chainId: `0x${network.chainId.toString(16)}` }],
-          });
-        } catch (error) {
-          // Handle network add if network not found
-          if (error.code === 4902) {
+        if (chainId !== network.chainId) {
+          try {
             await walletProvider.request({
-              method: 'wallet_addEthereumChain',
-              params: [{
-                chainId: `0x${network.chainId.toString(16)}`,
-                chainName: network.name,
-                nativeCurrency: {
-                  name: network.currency,
-                  symbol: network.currency,
-                  decimals: 18
-                },
-                rpcUrls: [network.rpcUrl],
-                blockExplorerUrls: [network.explorerUrl]
-              }]
+              method: 'wallet_switchEthereumChain',
+              params: [{ chainId: `0x${network.chainId.toString(16)}` }],
             });
-          } else {
-            throw error;
+          } catch (error) {
+            if (error.code === 4902) {
+              await walletProvider.request({
+                method: 'wallet_addEthereumChain',
+                params: [{
+                  chainId: `0x${network.chainId.toString(16)}`,
+                  chainName: network.name,
+                  nativeCurrency: {
+                    name: network.currency,
+                    symbol: network.currency,
+                    decimals: 18
+                  },
+                  rpcUrls: [network.rpcUrl],
+                  blockExplorerUrls: [network.explorerUrl]
+                }]
+              });
+            } else {
+              throw error;
+            }
           }
         }
-      }
 
-      updateStatus(network.id, { type: 'info', message: 'Checking if you can say hello...' });
-      const contract = new Contract(network.contractAddress, CONTRACT_ABI, signer);
-      const canSay = await contract.canSayHello(address);
+        updateStatus(network.id, { type: 'info', message: 'Checking if you can say hello...' });
+        const contract = new Contract(network.contractAddress, CONTRACT_ABI, signer);
+        const canSay = await contract.canSayHello(address);
 
-      if (!canSay) {
-        const timeUntil = await contract.timeUntilNextHello(address);
-        const hours = Math.floor(Number(timeUntil) / 3600);
-        const minutes = Math.floor((Number(timeUntil) % 3600) / 60);
+        if (!canSay) {
+          const timeUntil = await contract.timeUntilNextHello(address);
+          const hours = Math.floor(Number(timeUntil) / 3600);
+          const minutes = Math.floor((Number(timeUntil) % 3600) / 60);
+          updateStatus(network.id, {
+            type: 'error',
+            message: `❌ Already said hello today! Try again in ${hours}h ${minutes}m`,
+          });
+          setLoadingStates(prev => ({ ...prev, [network.id]: false }));
+          return;
+        }
+
+        updateStatus(network.id, { type: 'info', message: 'Sending transaction...' });
+        const tx = await contract.sayHello();
+
+        updateStatus(network.id, { type: 'info', message: 'Confirming transaction...' });
+        await tx.wait();
+
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        const stats = await contract.getUserStats(address);
+        const streak = Number(stats._currentStreak);
+        updateStatus(network.id, {
+          type: 'success',
+          message: `✅ Hello World! Streak: ${streak} day${streak !== 1 ? 's' : ''}!`,
+        });
+        setTimeout(() => updateStatus(network.id, null), 8000);
+      } catch (error) {
+        console.error('Hello execution error:', error);
+        let errorMessage = 'Transaction failed';
+        if (error.message.includes('Already said hello today')) {
+          errorMessage = 'Already said hello today!';
+        } else if (error.message.includes('user rejected')) {
+          errorMessage = 'Transaction rejected';
+        }
         updateStatus(network.id, {
           type: 'error',
-          message: `❌ Already said hello today! Try again in ${hours}h ${minutes}m`,
+          message: `❌ ${errorMessage}`,
         });
+      } finally {
         setLoadingStates(prev => ({ ...prev, [network.id]: false }));
-        return;
       }
+    };
 
-      updateStatus(network.id, { type: 'info', message: 'Sending transaction...' });
-      const tx = await contract.sayHello();
-
-      updateStatus(network.id, { type: 'info', message: 'Confirming transaction...' });
-      await tx.wait();
-
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      const stats = await contract.getUserStats(address);
-      const streak = Number(stats._currentStreak);
-      updateStatus(network.id, {
-        type: 'success',
-        message: `✅ Hello World! Streak: ${streak} day${streak !== 1 ? 's' : ''}!`,
-      });
-      setTimeout(() => updateStatus(network.id, null), 8000);
-    } catch (error) {
-      console.error('Hello execution error:', error);
-      let errorMessage = 'Transaction failed';
-      if (error.message.includes('Already said hello today')) {
-        errorMessage = 'Already said hello today!';
-      } else if (error.message.includes('user rejected')) {
-        errorMessage = 'Transaction rejected';
-      }
-      updateStatus(network.id, {
-        type: 'error',
-        message: `❌ ${errorMessage}`,
-      });
-    } finally {
-      // Remove loading indicator for specific network button
-      setLoadingStates(prev => ({ ...prev, [network.id]: false }));
-    }
+    // Enqueue and start task in per-network queue
+    enqueue(network.id, task).catch(console.error);
   };
 
   return (
