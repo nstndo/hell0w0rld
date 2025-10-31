@@ -279,28 +279,35 @@ function App() {
       setTimeout(() => updateStatus(network.id, null), 8000);
 
     } catch (error) {
-      console.error('Hello execution error:', error);
-      let errorMessage = 'Transaction failed';
-      
-      if (networkChanged) {
-        errorMessage = 'Network changed during transaction';
-      } else if (error.message.includes('Already said hello today')) {
-        errorMessage = 'Already said hello today!';
-      } else if (error.message.includes('user rejected')) {
-        errorMessage = 'Transaction rejected';
-      } else if (error.message.includes('network changed')) {
-        errorMessage = 'Network changed during transaction';
-      } else if (error.message.includes('Network switch failed')) {
-        errorMessage = 'Network switch failed. Please try again';
-      }
-      
-      updateStatus(network.id, {
-        type: 'error',
-        message: `❌ ${errorMessage}`
-      });
-      
-      throw error;
-    } finally {
+  console.error('Hello execution error:', error);
+  console.error('Error code:', error.code);
+  console.error('Error message:', error.message);
+  
+  let errorMessage = 'Transaction failed';
+  
+  if (networkChanged) {
+    errorMessage = 'Network changed during transaction';
+  } else if (error.code === 4902) {
+    errorMessage = 'Failed to add network. Please add manually';
+  } else if (error.code === 4001) {
+    errorMessage = 'User rejected the request';
+  } else if (error.message.includes('Already said hello today')) {
+    errorMessage = 'Already said hello today!';
+  } else if (error.message.includes('user rejected')) {
+    errorMessage = 'Transaction rejected';
+  } else if (error.message.includes('network changed')) {
+    errorMessage = 'Network changed during transaction';
+  } else if (error.message.includes('Network switch failed')) {
+    errorMessage = 'Network switch failed. Please try again';
+  }
+  
+  updateStatus(network.id, {
+    type: 'error',
+    message: `❌ ${errorMessage}`
+  });
+  
+  throw error;
+} finally {
       // Clean up event listener
       if (window.ethereum) {
         window.ethereum.removeListener('chainChanged', handleChainChanged);
