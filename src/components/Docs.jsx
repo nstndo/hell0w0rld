@@ -807,6 +807,29 @@ const Docs = () => {
             </div>
           </div>
 
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge sepolia">
+                <img src="/images/networks/ARC.svg" alt="Arc Testnet" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Arc Testnet</h3>
+                <p className="chain-id">Chain ID: 5042002</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://testnet.arcscan.app/address/0xd0c205e3C704595113FB8006379EDd1Bc89B2A17" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                ARC_TESTNET_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
+
         </div>
       </div>
 

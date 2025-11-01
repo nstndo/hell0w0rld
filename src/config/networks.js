@@ -169,6 +169,18 @@ export const NETWORKS = [
     currency: 'OPN',
     isTestnet: true
   },
+  {
+    id: 'arc-testnet',
+    name: 'Arc Testnet',
+    chainId: 5042002,
+    contractAddress: '0xd0c205e3C704595113FB8006379EDd1Bc89B2A17',
+    rpcUrl: 'https://rpc.testnet.arc.network',
+    icon: 'ARC',
+    logo: '/images/networks/ARC.svg',
+    explorerUrl: 'https://testnet.arcscan.app',
+    currency: 'USDC',
+    isTestnet: true
+  },
   // Mainnets
   {
     id: 'base',
