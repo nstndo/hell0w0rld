@@ -110,18 +110,6 @@ export const NETWORKS = [
     isTestnet: true
   },
   {
-    id: 'haust-testnet-network',
-    name: 'Haust Testnet Network',
-    chainId: 1523903251,
-    contractAddress: '0x3480fF98c739cFA0015C5f02fbe37C7C92E04D10',
-    rpcUrl: 'https://rpc-testnet.haust.app',
-    icon: 'HAUST',
-    logo: '/images/networks/HAUST.svg',
-    explorerUrl: 'https://explorer-testnet.haust.app',
-    currency: 'HAUST',
-    isTestnet: true
-  },
-  {
     id: 'jovay-testnet',
     name: 'Jovay Testnet',
     chainId: 2019775,
