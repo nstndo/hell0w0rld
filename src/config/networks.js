@@ -433,6 +433,18 @@ export const NETWORKS = [
     explorerUrl: 'https://haustscan.com',
     currency: 'HAUST',
     isTestnet: false
+  },
+  {
+    id: 'intuition',
+    name: 'Intuition',
+    chainId: 1155,
+    contractAddress: '0x123Be1873eA508F6EEC32731Ac3dd20908697596',
+    rpcUrl: 'https://rpc.intuition.systems',
+    icon: 'TRUST',
+    logo: '/images/networks/TRUST.svg',
+    explorerUrl: 'https://explorer.intuition.systems/',
+    currency: 'TRUST',
+    isTestnet: false
   }
 ];
 
