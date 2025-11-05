@@ -181,6 +181,18 @@ export const NETWORKS = [
     currency: 'USDC',
     isTestnet: true
   },
+  {
+    id: 'stable-testnet',
+    name: 'Stable Chain Testnet',
+    chainId: 2201,
+    contractAddress: '0xd0c205e3C704595113FB8006379EDd1Bc89B2A17',
+    rpcUrl: 'https://rpc.testnet.stable.xyz',
+    icon: 'STABLE',
+    logo: '/images/networks/STABLE.svg',
+    explorerUrl: 'https://stable-jsonrpc.testnet.chain0.dev',
+    currency: 'gUSDT',
+    isTestnet: true
+  },
   // Mainnets
   {
     id: 'base',

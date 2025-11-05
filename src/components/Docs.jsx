@@ -830,6 +830,29 @@ const Docs = () => {
             </div>
           </div>
 
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge sepolia">
+                <img src="/images/networks/STABLE.svg" alt="Stable Chain Testnet" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Stable Chain Testnet</h3>
+                <p className="chain-id">Chain ID: 2201</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://testnet.stablescan.xyz/address/0xd0c205e3c704595113fb8006379edd1bc89b2a17" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                STABLE_CHAIN_TESTNET_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
+
         </div>
       </div>
 
