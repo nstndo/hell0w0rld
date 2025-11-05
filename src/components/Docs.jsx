@@ -949,7 +949,7 @@ console.log('Streak:', stats._currentStreak);`}
         <div className="faq">
           <div className="faq-item">
             <h3>How often can I say hello?</h3>
-            <p>You can say hello once per day (resets at 00:00 UTC / 03:00 Moscow time)</p>
+            <p>You can say hello once per day (resets at 00:00 UTC)</p>
           </div>
           <div className="faq-item">
             <h3>What happens if I miss a day?</h3>
