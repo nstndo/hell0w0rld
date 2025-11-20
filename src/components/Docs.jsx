@@ -672,29 +672,6 @@ const Docs = () => {
           <div className="contract-row">
             <div className="contract-network">
               <div className="network-badge sepolia">
-                <img src="/images/networks/MEGA.svg" alt="Megaeth Testnet" className="badge-logo" />
-              </div>
-              <div>
-                <h3>Megaeth Testnet</h3>
-                <p className="chain-id">Chain ID: 6342</p>
-              </div>
-            </div>
-            <div className="contract-address-block">
-              <a 
-                href="https://web3.okx.com/ru/explorer/megaeth-testnet/address/0xc87347a4e46ad9d0809df41db6802809d7086b2e" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="address-link"
-              >
-                MEGAETH_TESTNET_CONTRACT
-                <span className="external-icon">↗</span>
-              </a>
-            </div>
-          </div>
-
-          <div className="contract-row">
-            <div className="contract-network">
-              <div className="network-badge sepolia">
                 <img src="/images/networks/ANKR.svg" alt="Neura Testnet" className="badge-logo" />
               </div>
               <div>
