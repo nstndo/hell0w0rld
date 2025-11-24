@@ -206,6 +206,29 @@ const Docs = () => {
           <div className="contract-row">
             <div className="contract-network">
               <div className="network-badge">
+                <img src="/images/networks/MON.svg" alt="Monad" className="badge-logo" />
+              </div>
+              <div>
+                <h3>Monad</h3>
+                <p className="chain-id">Chain ID: 143</p>
+              </div>
+            </div>
+            <div className="contract-address-block">
+              <a 
+                href="https://monadscan.com/address/0xd0c205e3C704595113FB8006379EDd1Bc89B2A17" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="address-link"
+              >
+                MONAD_CONTRACT
+                <span className="external-icon">↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div className="contract-row">
+            <div className="contract-network">
+              <div className="network-badge">
                 <img src="/images/networks/ARB.svg" alt="Arbitrum" className="badge-logo" />
               </div>
               <div>
@@ -664,29 +687,6 @@ const Docs = () => {
                 className="address-link"
               >
                 RISE_TESTNET_CONTRACT
-                <span className="external-icon">↗</span>
-              </a>
-            </div>
-          </div>
-
-          <div className="contract-row">
-            <div className="contract-network">
-              <div className="network-badge sepolia">
-                <img src="/images/networks/MEGA.svg" alt="Megaeth Testnet" className="badge-logo" />
-              </div>
-              <div>
-                <h3>Megaeth Testnet</h3>
-                <p className="chain-id">Chain ID: 6342</p>
-              </div>
-            </div>
-            <div className="contract-address-block">
-              <a 
-                href="https://web3.okx.com/ru/explorer/megaeth-testnet/address/0xc87347a4e46ad9d0809df41db6802809d7086b2e" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="address-link"
-              >
-                MEGAETH_TESTNET_CONTRACT
                 <span className="external-icon">↗</span>
               </a>
             </div>

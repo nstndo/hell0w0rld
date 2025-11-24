@@ -86,18 +86,6 @@ export const NETWORKS = [
     isTestnet: true
   },
   {
-    id: 'megaeth-testnet',
-    name: 'Megaeth Testnet',
-    chainId: 6342,
-    contractAddress: '0xc87347a4e46ad9d0809df41db6802809d7086b2e',
-    rpcUrl: 'https://carrot.megaeth.com/rpc',
-    icon: 'MEGA',
-    logo: '/images/networks/MEGA.svg',
-    explorerUrl: 'https://web3.okx.com/ru/explorer/megaeth-testnet',
-    currency: 'ETH',
-    isTestnet: true
-  },
-  {
     id: 'neura-protocol',
     name: 'Neura Testnet',
     chainId: 267,
@@ -288,6 +276,18 @@ export const NETWORKS = [
     logo: '/images/networks/LINEA.svg',
     explorerUrl: 'https://lineascan.build',
     currency: 'ETH',
+    isTestnet: false
+  },
+  {
+    id: 'monad',
+    name: 'Monad',
+    chainId: 143,
+    contractAddress: '0xd0c205e3C704595113FB8006379EDd1Bc89B2A17',
+    rpcUrl: 'https://rpc.monad.xyz',
+    icon: 'MON',
+    logo: '/images/networks/MON.svg',
+    explorerUrl: 'https://monadscan.com',
+    currency: 'MON',
     isTestnet: false
   },
   {
