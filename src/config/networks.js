@@ -177,7 +177,7 @@ export const NETWORKS = [
     rpcUrl: 'https://rpc.testnet.stable.xyz',
     icon: 'STABLE',
     logo: '/images/networks/STABLE.svg',
-    explorerUrl: 'https://stable-jsonrpc.testnet.chain0.dev',
+    explorerUrl: 'https://testnet.stablescan.xyz',
     currency: 'gUSDT',
     isTestnet: true
   },
